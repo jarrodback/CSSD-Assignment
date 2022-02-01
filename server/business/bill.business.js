@@ -15,7 +15,7 @@ module.exports = class billBusiness {
   const filter = {
    driver: queryString.driver,
    paid: queryString.paid,
-   limit: queryString.limit ?? Number.MAX_VALUE,
+   limit: queryString.limit ?? 10,
    offset: queryString.offset ?? 0
   }
   console.log("BUSINESS" + filter)
