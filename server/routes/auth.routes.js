@@ -1,8 +1,8 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
 
 // Get the Auth controller
-var authController = require("../controllers/auth.controller");
+const authController = require("../controllers/auth.controller");
 
 // Log the user in
 router.post("/login/", authController.login);
