@@ -47,8 +47,7 @@ module.exports = class UserBusiness {
                     id: user._id,
                 };
             })
-            .catch(() => {
-                throw httpError(400, "Your email or password is incorrect.");
+            .catch(() => {throw httpError(400, "Your email or password is incorrect.");
             });
     }
 
@@ -109,9 +108,5 @@ module.exports = class UserBusiness {
  *  Validates the data in a User.
  */
 function isUserDataValid(user) {
-    if (!user || !user.username || !user.email || !user.password) {
-        return false;
-    } else {
-        return true;
-    }
+    return !(!user || !user.username || !user.email || !user.password);
 }

@@ -7,7 +7,6 @@ const billBusiness = new BillBusiness();
 exports.getAllBills = async (req, res) => {
  billBusiness.getAllBills(req.query)
    .then((data) => {res.status(200).send(data)})
-   .catch((error) => {res.status(error.status).send({ message: error.message })})
 }
 
 /**
@@ -15,6 +14,6 @@ exports.getAllBills = async (req, res) => {
  */
 exports.payBill = async (req, res) => {
  billBusiness.payBill(req.params.id)
-   .then(() => {res.status(200).send()})
+   .then(() => {res.status(200).send({message: "Bill paid."})})
    .catch((error) => {res.status(error.status).send({message: error.message})})
 }

@@ -12,7 +12,6 @@ class DataLayer {
           .limit(filter.limit)
           .skip(filter.offset * filter.limit)
           .populate(JSON.parse(JSON.stringify(populateFilter)))
-          .catch(error => { throw new Error(error.message)});
     }
     
     /**
@@ -34,7 +33,7 @@ class DataLayer {
      */
     async update(recordId, recordToUpdate) {
         return this.model.findByIdAndUpdate(recordId, recordToUpdate)
-          .orFail("Bill can't be found in the database.")
+          .orFail(new Error("Bill can't be found in the database."))
           .catch(error => {throw new Error(error.message)});
 
     }

@@ -13,14 +13,13 @@ module.exports = class billBusiness {
   */
  async getAllBills(queryString) {
   const filter = {
-   driverId: queryString.driverId,
+   driver: queryString.driver,
    paid: queryString.paid,
    limit: queryString.limit ?? Number.MAX_VALUE,
    offset: queryString.offset ?? 0
   }
   return this.dataLayer
       .findAllAndPopulate(filter, { path: 'journey', populate: { path: 'entryLocation exitLocation' }})
-      .catch((error) => {throw httpError(404, error.message)})
  }
 
  /**

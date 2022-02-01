@@ -33,7 +33,7 @@ describe("Testing /auth paths", () => {
     it("user should be able to login", (done) => {
         // Arrange
         const request = {
-            email: "test@test.com",
+            email: "test@email.com",
             password: "test1",
         };
 
@@ -48,7 +48,7 @@ describe("Testing /auth paths", () => {
                 res.body.should.have.property("message");
                 res.body.message.should.be.eql("Successfully logged in.");
                 res.should.have.cookie("highwayTracker-token");
-
+     
                 done();
             });
     });
@@ -56,7 +56,7 @@ describe("Testing /auth paths", () => {
     it("user shouldn't be able to login with invalid credentials", (done) => {
         // Act
         const request = {
-            email: "test@test.com",
+            email: "test@email.com",
             password: "test2",
         };
 
