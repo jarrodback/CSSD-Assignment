@@ -10,6 +10,10 @@ exports.getAllBills = async (req, res) => {
    .then((data) => {
     console.log(data)
     return res.status(200).send(data)})
+   .catch((error) => {
+    res.status(error.status).send({message: error.message})
+   })
+
 }
 
 /**
