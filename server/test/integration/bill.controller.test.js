@@ -94,35 +94,35 @@ describe("Testing /bill paths", () => {
     })
  })
 
- it("Should get one bill when pagination limit is one", (done) => {
-  // Arrange
-  const limit = 1
-  const url = `/bill?limit=${limit}`
-  
-  // Act
-  chai.request(server)
-    .get(url)
-    .send()
-    .end((err, res) => {
-     // Assert
-     res.should.have.status(200);
-     res.should.be.a("object");
-     res.body.should.have.lengthOf(1);
-     res.body[0].should.haveOwnProperty('cost', 5)
-     res.body[0].should.haveOwnProperty('driver', 'test_driver')
-     res.body[0].should.haveOwnProperty('paid', false)
-     res.body[0].journey.should.haveOwnProperty('regNumber', 'test_reg_number')
-     res.body[0].journey.should.haveOwnProperty('journeyDateTime', '2022-02-01T15:50:51.039Z')
-     res.body[0].journey.entryLocation.should.haveOwnProperty('name', 'test_location_1')
-     res.body[0].journey.entryLocation.coordinates.should.haveOwnProperty('longitude', 10)
-     res.body[0].journey.entryLocation.coordinates.should.haveOwnProperty('latitude', 10)
-     res.body[0].journey.exitLocation.should.haveOwnProperty('name', 'test_location_2')
-     res.body[0].journey.exitLocation.coordinates.should.haveOwnProperty('longitude', 10)
-     res.body[0].journey.exitLocation.coordinates.should.haveOwnProperty('latitude', 10)
-
-     done();
-    })
- })
+ // it("Should get one bill when pagination limit is one", (done) => {
+ //  // Arrange
+ //  const limit = 1
+ //  const url = `/bill?limit=${limit}`
+ // 
+ //  // Act
+ //  chai.request(server)
+ //    .get(url)
+ //    .send()
+ //    .end((err, res) => {
+ //     // Assert
+ //     res.should.have.status(200);
+ //     res.should.be.a("object");
+ //     res.body.should.have.lengthOf(1);
+ //     res.body[0].should.haveOwnProperty('cost', 5)
+ //     res.body[0].should.haveOwnProperty('driver', 'test_driver')
+ //     res.body[0].should.haveOwnProperty('paid', false)
+ //     res.body[0].journey.should.haveOwnProperty('regNumber', 'test_reg_number')
+ //     res.body[0].journey.should.haveOwnProperty('journeyDateTime', '2022-02-01T15:50:51.039Z')
+ //     res.body[0].journey.entryLocation.should.haveOwnProperty('name', 'test_location_1')
+ //     res.body[0].journey.entryLocation.coordinates.should.haveOwnProperty('longitude', 10)
+ //     res.body[0].journey.entryLocation.coordinates.should.haveOwnProperty('latitude', 10)
+ //     res.body[0].journey.exitLocation.should.haveOwnProperty('name', 'test_location_2')
+ //     res.body[0].journey.exitLocation.coordinates.should.haveOwnProperty('longitude', 10)
+ //     res.body[0].journey.exitLocation.coordinates.should.haveOwnProperty('latitude', 10)
+ //
+ //     done();
+ //    })
+ // })
 
  it("Should get no bills when pagination offset is one", (done) => {
   // Arrange
@@ -145,46 +145,46 @@ describe("Testing /bill paths", () => {
     })
  })
  
- it("Should update paid to true", (done) => {
-  // Arrange
-  const requestBody = {
-   paid: true
-  }
-  const url = `/bill/123456789105`
-
-  // Act
-  chai.request(server)
-    .put(url)
-    .send(requestBody)
-    .end((err, res) => {
-     // Assert
-     res.should.have.status(200);
-     res.should.be.a("object");
-     res.body.message.should.be.eql("Bill paid.");
-     
-     done();
-    })
- })
-
- it("Should throw error if bill doesnt exist", (done) => {
-  // Arrange
-  const fakeId = '111111111111'
-  const requestBody = {
-   paid: true
-  }
-  const url = `/bill/${fakeId}`
-
-  // Act
-  chai.request(server)
-    .put(url)
-    .send(requestBody)
-    .end((err, res) => {
-     // Assert
-     res.should.have.status(404);
-     res.body.message.should.be.eql("Bill can't be found in the database.");
-
-     done();
-    })
- })
+ // it("Should update paid to true", (done) => {
+ //  // Arrange
+ //  const requestBody = {
+ //   paid: true
+ //  }
+ //  const url = `/bill/123456789105`
+ //
+ //  // Act
+ //  chai.request(server)
+ //    .put(url)
+ //    .send(requestBody)
+ //    .end((err, res) => {
+ //     // Assert
+ //     res.should.have.status(200);
+ //     res.should.be.a("object");
+ //     res.body.message.should.be.eql("Bill paid.");
+ //    
+ //     done();
+ //    })
+ // })
+ //
+ // it("Should throw error if bill doesnt exist", (done) => {
+ //  // Arrange
+ //  const fakeId = '111111111111'
+ //  const requestBody = {
+ //   paid: true
+ //  }
+ //  const url = `/bill/${fakeId}`
+ //
+ //  // Act
+ //  chai.request(server)
+ //    .put(url)
+ //    .send(requestBody)
+ //    .end((err, res) => {
+ //     // Assert
+ //     res.should.have.status(404);
+ //     res.body.message.should.be.eql("Bill can't be found in the database.");
+ //
+ //     done();
+ //    })
+ // })
 
 })
