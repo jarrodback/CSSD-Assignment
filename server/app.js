@@ -12,7 +12,7 @@ var app = express();
 
 app.use(
     cookieSession({
-        name: "readonline-token",
+        name: "highwayTracker-token",
         secret: process.env.TOKEN_SECRET,
         httpOnly: true,
         keys: [process.env.TOKEN_SECRET],

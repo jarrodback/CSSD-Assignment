@@ -5,12 +5,12 @@ module.exports = (mongoose) => {
             type: String,
             required: [true, "You must supply the user's username."],
             minlength: [5, "Your username must be at least 5 letters."],
-            unique: [true, "The username must be unique."],
+            unique: true,
         },
         email: {
             type: String,
             required: [true, "You must supply the user's email."],
-            unique: [true, "The email must be unique."],
+            unique: true,
         },
         password: {
             type: String,

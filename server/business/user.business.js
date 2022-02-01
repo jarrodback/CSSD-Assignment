@@ -15,10 +15,7 @@ class UserBusiness {
      */
     async login(email, password) {
         return this.findUserByEmail(email)
-            .then((users) => {
-                // Email is unique so only 1 can be returned.
-                const user = users[0];
-
+            .then((user) => {
                 const passwordIsValid = bcrypt.compareSync(
                     password,
                     user.password
@@ -59,17 +56,11 @@ class UserBusiness {
      *  Register a user.
      */
     async register(user) {
-        if (!isUserADriver(user)) {
-            throw httpError(
-                400,
-                "You cannot create a type of Toll Operator through this endpoint."
-            );
-        }
         return this.createUser({
             username: user.username,
             email: user.email,
             password: user.password,
-            type: user.type,
+            type: "Driver",
         }).catch((error) => {
             throw httpError(400, error.message);
         });
@@ -104,6 +95,10 @@ class UserBusiness {
     async findUserByEmail(email) {
         return this.dataLayer
             .findByProperty({ email: email })
+            .then((users) => {
+                // Email is unique so only 1 can be returned.
+                return users[0];
+            })
             .catch((error) => {
                 throw httpError(404, error.message);
             });
@@ -113,23 +108,11 @@ module.exports = UserBusiness;
 
 /**
  *  Validates the data in a User.
- *
- * @returns {Boolean} True if the object maps correct to the User model.
  */
 function isUserDataValid(user) {
-    if (
-        !user ||
-        !user.username ||
-        !user.email ||
-        !user.type ||
-        !user.password
-    ) {
+    if (!user || !user.username || !user.email || !user.password) {
         return false;
     } else {
         return true;
     }
-}
-
-function isUserADriver(user) {
-    return user && user.type == "Driver";
 }

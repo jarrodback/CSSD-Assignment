@@ -6,15 +6,19 @@ chai.use(chaiHttp);
 
 describe("Testing /auth paths", () => {
     it("user should be able to register", (done) => {
+        // Arrange
+        const request = {
+            email: "test@test.com",
+            password: "test1",
+            username: "arealusername",
+        };
+
+        // Act
         chai.request(server)
             .post("/auth/register")
-            .send({
-                email: "test@test.com",
-                password: "test1",
-                username: "arealusername",
-                type: "Driver",
-            })
+            .send(request)
             .end((err, res) => {
+                // Assert
                 res.should.have.status(200);
                 res.should.be.a("object");
                 res.body.should.have.property("message");
@@ -27,31 +31,41 @@ describe("Testing /auth paths", () => {
     });
 
     it("user should be able to login", (done) => {
+        // Arrange
+        const request = {
+            email: "test@test.com",
+            password: "test1",
+        };
+
+        // Act
         chai.request(server)
             .post("/auth/login")
-            .send({
-                email: "test@test.com",
-                password: "test1",
-            })
+            .send(request)
             .end((err, res) => {
+                // Assert
                 res.should.have.status(200);
                 res.should.be.a("object");
                 res.body.should.have.property("message");
                 res.body.message.should.be.eql("Successfully logged in.");
-                res.should.have.cookie("readonline-token");
+                res.should.have.cookie("highwayTracker-token");
 
                 done();
             });
     });
 
     it("user shouldn't be able to login with invalid credentials", (done) => {
+        // Act
+        const request = {
+            email: "test@test.com",
+            password: "test2",
+        };
+
+        // Arrange
         chai.request(server)
             .post("/auth/login")
-            .send({
-                email: "test@test.com",
-                password: "test2",
-            })
+            .send(request)
             .end((err, res) => {
+                // Assert
                 res.should.have.status(400);
                 res.should.be.a("object");
                 res.body.should.have.property("message");
@@ -64,15 +78,19 @@ describe("Testing /auth paths", () => {
     });
 
     it("user shouldn't be able to register with duplicate username", (done) => {
+        // Act
+        const request = {
+            email: "test@realemail.com",
+            password: "test1",
+            username: "test_username",
+        };
+
+        // Arrange
         chai.request(server)
             .post("/auth/register")
-            .send({
-                email: "test@realemail.com",
-                password: "test1",
-                username: "test_username",
-                type: "Driver",
-            })
+            .send(request)
             .end((err, res) => {
+                // Assert
                 res.should.have.status(400);
                 res.should.be.a("object");
                 res.body.should.have.property("message");
@@ -83,40 +101,23 @@ describe("Testing /auth paths", () => {
     });
 
     it("user shouldn't be able to register with duplicate email", (done) => {
+        // Act
+        const request = {
+            email: "test@email.com",
+            password: "test1",
+            username: "a username",
+        };
+
+        // Arrange
         chai.request(server)
             .post("/auth/register")
-            .send({
-                email: "test@email.com",
-                password: "test1",
-                username: "a username",
-                type: "Driver",
-            })
+            .send(request)
             .end((err, res) => {
+                // Assert
                 res.should.have.status(400);
                 res.should.be.a("object");
                 res.body.should.have.property("message");
                 res.body.message.should.be.eql("Email is already in use.");
-
-                done();
-            });
-    });
-
-    it("user shouldn't be able to register a Toll Operator through the /register endpoint", (done) => {
-        chai.request(server)
-            .post("/auth/register")
-            .send({
-                email: "tolloperator@email.com",
-                password: "test1",
-                username: "tolloperator",
-                type: "Toll Operator",
-            })
-            .end((err, res) => {
-                res.should.have.status(400);
-                res.should.be.a("object");
-                res.body.should.have.property("message");
-                res.body.message.should.be.eql(
-                    "You cannot create a type of Toll Operator through this endpoint."
-                );
 
                 done();
             });

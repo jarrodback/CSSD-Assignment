@@ -22,8 +22,6 @@ function setRunValidators() {
     this.setOptions({ runValidators: true });
 }
 
-// Add models to the database.
-
 // Using the mongoose object, start the database
 db.mongoose
     .connect(db.url, {

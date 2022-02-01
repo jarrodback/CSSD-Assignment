@@ -2,8 +2,9 @@
 .DS_Store
 node_modules
 /dist
-
 package-lock.json
+server/.nyc_output/*.json
+server/.nyc_output/processinfo/*.json
 
 # local env files
 .env.local
