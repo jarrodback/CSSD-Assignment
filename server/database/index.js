@@ -2,7 +2,7 @@
 const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 const environment = process.env.NODE_ENV;
-const dbConfig = require("../config/db.config.js")[environment];
+let dbConfig = require("../config/db.config.js")[environment];
 
 const journey = require("../models/journey")(mongoose);
 const bill = require("../models/bill")(mongoose);
