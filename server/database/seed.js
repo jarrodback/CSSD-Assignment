@@ -80,7 +80,7 @@ const bills = [
 ]
 
 const seedDB = async () => {
-    for(collection in mongoose.connection.collections){
+    for(const collection in mongoose.connection.collections){
         await mongoose.connection.collections[collection].deleteMany()
     }
     

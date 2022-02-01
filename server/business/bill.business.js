@@ -18,7 +18,6 @@ module.exports = class billBusiness {
    limit: queryString.limit ?? 10,
    offset: queryString.offset ?? 0
   }
-  console.log("BUSINESS" + filter)
   return this.dataLayer
       .findAllAndPopulate(filter, { path: 'journey', populate: { path: 'entryLocation exitLocation' }})
  }

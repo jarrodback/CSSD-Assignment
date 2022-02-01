@@ -5,11 +5,8 @@ const billBusiness = new BillBusiness();
  * Get all bills
  */
 exports.getAllBills = async (req, res) => {
- console.log("CONTROLLER")
  billBusiness.getAllBills(req.query)
-   .then((data) => {
-    console.log(data)
-    return res.status(200).send(data)})
+   .then((data) => {return res.status(200).send(data)})
    .catch((error) => {
     res.status(error.status).send({message: error.message})
    })
