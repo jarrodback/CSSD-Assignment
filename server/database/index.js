@@ -4,8 +4,13 @@ mongoose.Promise = global.Promise;
 const environment = process.env.NODE_ENV;
 const dbConfig = require("../config/db.config.js")[environment];
 
+const journey = require("../models/journey")(mongoose);
+const bill = require("../models/bill")(mongoose);
+const location = require("../models/location")(mongoose);
+const user = require("../models/user.model.js")(mongoose);
+
 // Create mongoose and read in config
-const db = {};
+const db = { journey: journey, bill: bill, location: location, user: user };
 db.mongoose = mongoose;
 db.url = dbConfig.url;
 
@@ -18,7 +23,6 @@ function setRunValidators() {
 }
 
 // Add models to the database.
-db.users = require("../models/user.model.js")(mongoose);
 
 // Using the mongoose object, start the database
 db.mongoose
