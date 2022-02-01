@@ -32,7 +32,7 @@ exports.register = (req, res) => {
     userBusiness
         .register(req.body)
         .then(() => {
-            res.status(200).send({
+            res.status(201).send({
                 message: "User was successfully created.",
             });
         })
