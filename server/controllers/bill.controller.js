@@ -5,6 +5,7 @@ const billBusiness = new BillBusiness();
  * Get all bills
  */
 exports.getAllBills = async (req, res) => {
+ console.log("CONTROLLER")
  billBusiness.getAllBills(req.query)
    .then((data) => {res.status(200).send(data)})
 }
