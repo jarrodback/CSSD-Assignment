@@ -19,7 +19,7 @@ describe("Testing /auth paths", () => {
             .send(request)
             .end((err, res) => {
                 // Assert
-                res.should.have.status(200);
+                res.should.have.status(201);
                 res.should.be.a("object");
                 res.body.should.have.property("message");
                 res.body.message.should.be.eql(
