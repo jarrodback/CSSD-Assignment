@@ -9,11 +9,13 @@ module.exports = mongoose => {
     },
     entryLocation: {
      type: mongoose.Schema.Types.ObjectId, 
-     ref: "location"
+     ref: "location",
+     required: [true, "A entry location is required."]
     },
     exitLocation: {
      type: mongoose.Schema.Types.ObjectId, 
-     ref: "location"
+     ref: "location",
+     required: [true, "A exit location is required."]
     },
     journeyDateTime: {
      type: Date
