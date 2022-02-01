@@ -128,14 +128,13 @@ describe("Testing /bill paths", () => {
   // Arrange
   const offset = 1
   const url = `/bill?offset=${offset}`
-  console.log("ARRANGE")
+
   // Act
   chai.request(server)
     .get(url)
     .send()
     .end((err, res) => {
      // Assert
-     console.log("ASSERT" + res.body)
 
      res.should.have.status(200);
      res.should.be.a("object");
