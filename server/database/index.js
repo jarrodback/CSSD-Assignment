@@ -2,7 +2,7 @@
 const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 const environment = process.env.NODE_ENV;
-const dbConfig = require("../config/db.config.js")[environment];
+let dbConfig = require("../config/db.config.js")[environment];
 
 const journey = require("../models/journey")(mongoose);
 const bill = require("../models/bill")(mongoose);
@@ -12,6 +12,14 @@ const user = require("../models/user.model.js")(mongoose);
 // Create mongoose and read in config
 const db = { journey: journey, bill: bill, location: location, user: user };
 db.mongoose = mongoose;
+
+// For GITHUB ACTIONS - if null set it to testing
+if (!dbConfig) {
+    dbConfig = {
+        url: "mongodb://localhost:27017/highwaytrackerdb_testing",
+    };
+}
+
 db.url = dbConfig.url;
 
 db.mongoose.plugin((schema) => {
