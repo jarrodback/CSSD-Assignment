@@ -8,6 +8,7 @@ class DataLayer {
      * Find all records in the database.
      */
     async findAllAndPopulate(filter, populateFilter) {
+        console.log("DATA LAYER")
         return this.model.find(JSON.parse(JSON.stringify(filter)))
           .limit(filter.limit)
           .skip(filter.offset * filter.limit)

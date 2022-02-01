@@ -7,7 +7,9 @@ const billBusiness = new BillBusiness();
 exports.getAllBills = async (req, res) => {
  console.log("CONTROLLER")
  billBusiness.getAllBills(req.query)
-   .then((data) => {res.status(200).send(data)})
+   .then((data) => {
+    console.log(data)
+    return res.status(200).send(data)})
 }
 
 /**
