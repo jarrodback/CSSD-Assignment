@@ -14,6 +14,10 @@
     cost: {
      type: Number,
      required: [true, "A cost for the bill is required."]
+    },
+    paid: {
+     type: Boolean,
+     default: false
     }
    },
    {
