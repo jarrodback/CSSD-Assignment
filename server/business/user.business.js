@@ -4,7 +4,7 @@ const httpError = require("http-errors");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
-class UserBusiness {
+module.exports = class UserBusiness {
     constructor() {
         // Create an instance of the data layer.
         this.dataLayer = new DataLayer(model);
@@ -104,7 +104,6 @@ class UserBusiness {
             });
     }
 }
-module.exports = UserBusiness;
 
 /**
  *  Validates the data in a User.
