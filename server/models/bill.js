@@ -19,16 +19,8 @@
      type: Boolean,
      default: false
     }
-   },
-   {
-    toJSON: {virtuals: true},
-    toObject: {virtuals: true}
    }
  )
- 
- billSchema.virtual('billReferenceNumber', {
-  billReferenceNumber: this._id
- })
- 
+
  return mongoose.model("bill", billSchema)
 }

@@ -8,6 +8,6 @@ const billController = require("../controllers/bill.controller");
 router.get("/", billController.getAllBills);
 
 // Pay for bill
-router.put("/{id}", billController.payBill);
+router.put("/:id", billController.payBill);
 
 module.exports = router;
