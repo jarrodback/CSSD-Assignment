@@ -59,16 +59,18 @@ class UserBusiness {
      *  Register a user.
      */
     async register(user) {
+        if (!isUserADriver(user)) {
+            throw httpError(
+                400,
+                "You cannot create a type of Toll Operator through this endpoint."
+            );
+        }
         return this.createUser({
             username: user.username,
             email: user.email,
             password: user.password,
             type: user.type,
         }).catch((error) => {
-            if (error.message.includes("username"))
-                throw httpError(400, "Username is already in use.");
-            if (error.message.includes("email"))
-                throw httpError(400, "Email is already in use.");
             throw httpError(400, error.message);
         });
     }
@@ -126,4 +128,8 @@ function isUserDataValid(user) {
     } else {
         return true;
     }
+}
+
+function isUserADriver(user) {
+    return user && user.type == "Driver";
 }
