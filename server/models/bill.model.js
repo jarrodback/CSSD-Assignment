@@ -28,8 +28,8 @@ module.exports = mongoose => {
   for(const index in docs){
    const bill = docs[index]
    const journey = await mongoose.model('journey').findById(bill.journey).populate({path: 'entryLocation exitLocation'})
-   const cost = Utilities.calculateCost(journey)
-   await mongoose.model('bill').findByIdAndUpdate(bill._id, bill.cost = cost)
+   bill.cost = Utilities.calculateCost(journey)
+   await mongoose.model('bill').findByIdAndUpdate(bill._id, bill)
   }
   next()
  })
