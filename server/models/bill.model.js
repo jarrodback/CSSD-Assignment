@@ -24,9 +24,11 @@ module.exports = mongoose => {
    }
  )
 
- billSchema.pre('save', async function (next) {
-  const journey = await mongoose.model('journey').findById(this.journey).populate({ path: 'entryLocation exitLocation' })
-  this.cost = Utilities.calculateCost(journey)
+ billSchema.pre('insertMany', async function (next, docs) {
+  for(const index in docs){
+   const journey = await mongoose.model('journey').findById(docs[index].journey).populate({path: 'entryLocation exitLocation'})
+   await mongoose.model('bill').findByIdAndUpdate(docs[index]._id, docs[index].cost = Utilities.calculateCost(journey))
+  }
   next()
  })
  

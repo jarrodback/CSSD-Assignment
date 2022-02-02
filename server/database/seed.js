@@ -94,10 +94,10 @@ const seedDB = async () => {
         await mongoose.connection.collections[collection].deleteMany()
     }
     
-    await mongoose.users.create(users);
-    await mongoose.locations.create(locations);
-    await mongoose.journeys.create(journeys);
-    await mongoose.bills.create(bills)
+    await mongoose.users.insertMany(users)
+    await mongoose.locations.insertMany(locations)
+    await mongoose.journeys.insertMany(journeys)
+    await mongoose.bills.insertMany(bills)
 };
 
 seedDB()
