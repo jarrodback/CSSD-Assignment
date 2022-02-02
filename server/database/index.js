@@ -16,7 +16,7 @@ db.mongoose = mongoose;
 // For GITHUB ACTIONS - if null set it to testing
 if (!dbConfig) {
     dbConfig = {
-        url: "mongodb://mongo:27017/highwaytrackerdb_testing",
+        url: "mongodb://localhost:27017/highwaytrackerdb_testing",
     };
 }
 
