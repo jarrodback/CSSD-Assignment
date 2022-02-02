@@ -77,7 +77,6 @@ const bills = [
         _id: "123456789105",
         journey: "123456789103",
         driver: "123456789107",
-        username: "test_username",
         cost: 5,
         paid: false
     },
@@ -85,7 +84,6 @@ const bills = [
         _id: "123456789106",
         journey: "123456789104",
         driver: "123456789108",
-        username: "test_username",
         cost: 5,
         paid: true
     }

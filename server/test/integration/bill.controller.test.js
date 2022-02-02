@@ -47,6 +47,7 @@ describe("Testing /bill paths", () => {
     .send()
     .end((err, res) => {
      // Assert
+     
      res.should.have.status(200);
      res.should.be.a("object");
      res.body.should.have.lengthOf(1);
