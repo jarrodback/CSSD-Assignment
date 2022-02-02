@@ -5,9 +5,8 @@ mongoose.journeys = require("../models/journey.model")(mongoose);
 mongoose.bills = require("../models/bill.model")(mongoose);
 const bcrypt = require("bcryptjs");
 const environment = process.env.NODE_ENV;
-let dbConfig = require("../config/db.config.js")[environment];
+let dbConfig = require("../config/db.config.js")[environment] ?? { url: "mongodb://localhost:27017/highwaytrackerdb_testing" };
 
-console.log(dbConfig)
 mongoose
     .connect(dbConfig.url, {
         useNewUrlParser: true,
