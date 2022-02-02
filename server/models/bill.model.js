@@ -8,8 +8,9 @@ module.exports = mongoose => {
      required: [true, "A journey must be attached to a bill."],
      unique: true
     },
-    driver: { 
-     type: String,
+    driver: {
+     type: mongoose.Schema.Types.ObjectId,
+     ref: "user",
      required: [true, "A driver must be assigned to a bill."]
     },
     cost: {

@@ -19,8 +19,10 @@ describe("Testing /bill paths", () => {
      res.should.be.a("object");
      res.body.should.have.lengthOf(2);
      res.body[0].should.haveOwnProperty('cost', 72.93887106726764)
-     res.body[0].should.haveOwnProperty('driver', 'test_driver')
      res.body[0].should.haveOwnProperty('paid', false)
+     res.body[0].driver.should.haveOwnProperty('username', 'test_username')
+     res.body[0].driver.should.haveOwnProperty('email', 'test@email.com')
+     res.body[0].driver.should.haveOwnProperty('type', 'Driver')
      res.body[0].journey.should.haveOwnProperty('regNumber', 'test_reg_number')
      res.body[0].journey.should.haveOwnProperty('journeyDateTime', '2022-02-01T15:50:51.039Z')
      res.body[0].journey.entryLocation.should.haveOwnProperty('name', 'test_location_1')
@@ -36,7 +38,7 @@ describe("Testing /bill paths", () => {
 
  it("Should get all bills which match the driver ID", (done) => {
   // Arrange
-  const driverId = "test_driver"
+  const driverId = "123456789107"
   const url = `/bill?driver=${driverId}`
   
   // Act
@@ -49,8 +51,10 @@ describe("Testing /bill paths", () => {
      res.should.be.a("object");
      res.body.should.have.lengthOf(1);
      res.body[0].should.haveOwnProperty('cost', 72.93887106726764)
-     res.body[0].should.haveOwnProperty('driver', 'test_driver')
      res.body[0].should.haveOwnProperty('paid', false)
+     res.body[0].driver.should.haveOwnProperty('username', 'test_username')
+     res.body[0].driver.should.haveOwnProperty('email', 'test@email.com')
+     res.body[0].driver.should.haveOwnProperty('type', 'Driver')
      res.body[0].journey.should.haveOwnProperty('regNumber', 'test_reg_number')
      res.body[0].journey.should.haveOwnProperty('journeyDateTime', '2022-02-01T15:50:51.039Z')
      res.body[0].journey.entryLocation.should.haveOwnProperty('name', 'test_location_1')
@@ -79,7 +83,9 @@ describe("Testing /bill paths", () => {
      res.should.be.a("object");
      res.body.should.have.lengthOf(1);
      res.body[0].should.haveOwnProperty('cost', 72.93887106726764)
-     res.body[0].should.haveOwnProperty('driver', 'test_driver2')
+     res.body[0].driver.should.haveOwnProperty('username', 'test_username2')
+     res.body[0].driver.should.haveOwnProperty('email', 'test2@email.com')
+     res.body[0].driver.should.haveOwnProperty('type', 'Driver')
      res.body[0].should.haveOwnProperty('paid', true)
      res.body[0].journey.should.haveOwnProperty('regNumber', 'test_reg_number2')
      res.body[0].journey.should.haveOwnProperty('journeyDateTime', '2022-02-01T15:50:51.038Z')
@@ -109,7 +115,9 @@ describe("Testing /bill paths", () => {
      res.should.be.a("object");
      res.body.should.have.lengthOf(1);
      res.body[0].should.haveOwnProperty('cost', 72.93887106726764)
-     res.body[0].should.haveOwnProperty('driver', 'test_driver')
+     res.body[0].driver.should.haveOwnProperty('username', 'test_username')
+     res.body[0].driver.should.haveOwnProperty('email', 'test@email.com')
+     res.body[0].driver.should.haveOwnProperty('type', 'Driver')
      res.body[0].should.haveOwnProperty('paid', false)
      res.body[0].journey.should.haveOwnProperty('regNumber', 'test_reg_number')
      res.body[0].journey.should.haveOwnProperty('journeyDateTime', '2022-02-01T15:50:51.039Z')

@@ -21,8 +21,16 @@ mongoose
 
 const users = [
     {
+        _id: "123456789107",
         username: "test_username",
         email: "test@email.com",
+        password: bcrypt.hashSync("test1", 8),
+        type: "Driver",
+    },
+    {
+        _id: "123456789108",
+        username: "test_username2",
+        email: "test2@email.com",
         password: bcrypt.hashSync("test1", 8),
         type: "Driver",
     },
@@ -68,14 +76,16 @@ const bills = [
     {
         _id: "123456789105",
         journey: "123456789103",
-        driver: "test_driver",
+        driver: "123456789107",
+        username: "test_username",
         cost: 5,
         paid: false
     },
     {
         _id: "123456789106",
         journey: "123456789104",
-        driver: "test_driver2",
+        driver: "123456789108",
+        username: "test_username",
         cost: 5,
         paid: true
     }
