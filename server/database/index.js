@@ -16,7 +16,7 @@ db.mongoose = mongoose;
 // For GITHUB ACTIONS - if null set it to testing
 if (!dbConfig) {
     dbConfig = {
-        url: "mongodb://localhost:27017/highwaytrackerdb_testing",
+        url: "mongodb://mongo:27017/highwaytrackerdb_testing",
     };
 }
 
@@ -29,7 +29,6 @@ db.mongoose.plugin((schema) => {
 function setRunValidators() {
     this.setOptions({ runValidators: true });
 }
-
 // Using the mongoose object, start the database
 db.mongoose
     .connect(db.url, {
