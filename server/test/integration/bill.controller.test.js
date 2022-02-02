@@ -18,17 +18,17 @@ describe("Testing /bill paths", () => {
      res.should.have.status(200);
      res.should.be.a("object");
      res.body.should.have.lengthOf(2);
-     res.body[0].should.haveOwnProperty('cost', 5)
+     res.body[0].should.haveOwnProperty('cost', 72.93887106726764)
      res.body[0].should.haveOwnProperty('driver', 'test_driver')
      res.body[0].should.haveOwnProperty('paid', false)
      res.body[0].journey.should.haveOwnProperty('regNumber', 'test_reg_number')
      res.body[0].journey.should.haveOwnProperty('journeyDateTime', '2022-02-01T15:50:51.039Z')
      res.body[0].journey.entryLocation.should.haveOwnProperty('name', 'test_location_1')
-     res.body[0].journey.entryLocation.coordinates.should.haveOwnProperty('longitude', 10)
-     res.body[0].journey.entryLocation.coordinates.should.haveOwnProperty('latitude', 10)
+     res.body[0].journey.entryLocation.coordinates.should.haveOwnProperty('longitude', 50)
+     res.body[0].journey.entryLocation.coordinates.should.haveOwnProperty('latitude', 50)
      res.body[0].journey.exitLocation.should.haveOwnProperty('name', 'test_location_2')
-     res.body[0].journey.exitLocation.coordinates.should.haveOwnProperty('longitude', 10)
-     res.body[0].journey.exitLocation.coordinates.should.haveOwnProperty('latitude', 10)
+     res.body[0].journey.exitLocation.coordinates.should.haveOwnProperty('longitude', 0)
+     res.body[0].journey.exitLocation.coordinates.should.haveOwnProperty('latitude', 0)
 
      done();
     })
@@ -48,17 +48,17 @@ describe("Testing /bill paths", () => {
      res.should.have.status(200);
      res.should.be.a("object");
      res.body.should.have.lengthOf(1);
-     res.body[0].should.haveOwnProperty('cost', 5)
+     res.body[0].should.haveOwnProperty('cost', 72.93887106726764)
      res.body[0].should.haveOwnProperty('driver', 'test_driver')
      res.body[0].should.haveOwnProperty('paid', false)
      res.body[0].journey.should.haveOwnProperty('regNumber', 'test_reg_number')
      res.body[0].journey.should.haveOwnProperty('journeyDateTime', '2022-02-01T15:50:51.039Z')
      res.body[0].journey.entryLocation.should.haveOwnProperty('name', 'test_location_1')
-     res.body[0].journey.entryLocation.coordinates.should.haveOwnProperty('longitude', 10)
-     res.body[0].journey.entryLocation.coordinates.should.haveOwnProperty('latitude', 10)
+     res.body[0].journey.entryLocation.coordinates.should.haveOwnProperty('longitude', 50)
+     res.body[0].journey.entryLocation.coordinates.should.haveOwnProperty('latitude', 50)
      res.body[0].journey.exitLocation.should.haveOwnProperty('name', 'test_location_2')
-     res.body[0].journey.exitLocation.coordinates.should.haveOwnProperty('longitude', 10)
-     res.body[0].journey.exitLocation.coordinates.should.haveOwnProperty('latitude', 10)
+     res.body[0].journey.exitLocation.coordinates.should.haveOwnProperty('longitude', 0)
+     res.body[0].journey.exitLocation.coordinates.should.haveOwnProperty('latitude', 0)
 
      done();
     })
@@ -78,17 +78,17 @@ describe("Testing /bill paths", () => {
      res.should.have.status(200);
      res.should.be.a("object");
      res.body.should.have.lengthOf(1);
-     res.body[0].should.haveOwnProperty('cost', 5)
+     res.body[0].should.haveOwnProperty('cost', 72.93887106726764)
      res.body[0].should.haveOwnProperty('driver', 'test_driver2')
      res.body[0].should.haveOwnProperty('paid', true)
      res.body[0].journey.should.haveOwnProperty('regNumber', 'test_reg_number2')
      res.body[0].journey.should.haveOwnProperty('journeyDateTime', '2022-02-01T15:50:51.038Z')
      res.body[0].journey.entryLocation.should.haveOwnProperty('name', 'test_location_1')
-     res.body[0].journey.entryLocation.coordinates.should.haveOwnProperty('longitude', 10)
-     res.body[0].journey.entryLocation.coordinates.should.haveOwnProperty('latitude', 10)
+     res.body[0].journey.entryLocation.coordinates.should.haveOwnProperty('longitude', 50)
+     res.body[0].journey.entryLocation.coordinates.should.haveOwnProperty('latitude', 50)
      res.body[0].journey.exitLocation.should.haveOwnProperty('name', 'test_location_2')
-     res.body[0].journey.exitLocation.coordinates.should.haveOwnProperty('longitude', 10)
-     res.body[0].journey.exitLocation.coordinates.should.haveOwnProperty('latitude', 10)
+     res.body[0].journey.exitLocation.coordinates.should.haveOwnProperty('longitude', 0)
+     res.body[0].journey.exitLocation.coordinates.should.haveOwnProperty('latitude', 0)
 
      done();
     })
@@ -108,17 +108,17 @@ describe("Testing /bill paths", () => {
      res.should.have.status(200);
      res.should.be.a("object");
      res.body.should.have.lengthOf(1);
-     res.body[0].should.haveOwnProperty('cost', 5)
+     res.body[0].should.haveOwnProperty('cost', 72.93887106726764)
      res.body[0].should.haveOwnProperty('driver', 'test_driver')
      res.body[0].should.haveOwnProperty('paid', false)
      res.body[0].journey.should.haveOwnProperty('regNumber', 'test_reg_number')
      res.body[0].journey.should.haveOwnProperty('journeyDateTime', '2022-02-01T15:50:51.039Z')
      res.body[0].journey.entryLocation.should.haveOwnProperty('name', 'test_location_1')
-     res.body[0].journey.entryLocation.coordinates.should.haveOwnProperty('longitude', 10)
-     res.body[0].journey.entryLocation.coordinates.should.haveOwnProperty('latitude', 10)
+     res.body[0].journey.entryLocation.coordinates.should.haveOwnProperty('longitude', 50)
+     res.body[0].journey.entryLocation.coordinates.should.haveOwnProperty('latitude', 50)
      res.body[0].journey.exitLocation.should.haveOwnProperty('name', 'test_location_2')
-     res.body[0].journey.exitLocation.coordinates.should.haveOwnProperty('longitude', 10)
-     res.body[0].journey.exitLocation.coordinates.should.haveOwnProperty('latitude', 10)
+     res.body[0].journey.exitLocation.coordinates.should.haveOwnProperty('longitude', 0)
+     res.body[0].journey.exitLocation.coordinates.should.haveOwnProperty('latitude', 0)
 
      done();
     })

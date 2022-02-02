@@ -1,4 +1,5 @@
-﻿module.exports = mongoose => {
+﻿const Utilities = require("../utilities")
+module.exports = mongoose => {
  const billSchema = mongoose.Schema(
    {
     journey: { 
@@ -22,5 +23,11 @@
    }
  )
 
+ billSchema.pre('save', async function (next) {
+  const journey = await mongoose.model('journey').findById(this.journey).populate({ path: 'entryLocation exitLocation' })
+  this.cost = Utilities.calculateCost(journey)
+  next()
+ })
+ 
  return mongoose.model("bill", billSchema)
 }

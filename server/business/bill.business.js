@@ -1,8 +1,9 @@
 ﻿const DataLayer = require("../datalayer/mongo");
+const Utilities = require("../utilities")
 const model = require("../database").getModel("bill");
 const httpError = require("http-errors");
 
-module.exports = class billBusiness {
+module.exports = class BillBusiness {
  constructor() {
   // Create an instance of the data layer.
   this.dataLayer = new DataLayer(model);
@@ -19,7 +20,8 @@ module.exports = class billBusiness {
    offset: queryString.offset ?? 0
   }
   return this.dataLayer
-      .findAllAndPopulate(filter, { path: 'journey', populate: { path: 'entryLocation exitLocation' }})
+    .findAllAndPopulate(filter, { path: 'journey', populate: { path: 'entryLocation exitLocation' }})
+    .catch((error) => { throw httpError(500, error.message)})
  }
 
  /**

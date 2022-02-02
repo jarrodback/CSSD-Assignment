@@ -1,12 +1,14 @@
 const mongoose = require("mongoose");
 mongoose.users = require("../models/user.model")(mongoose);
-mongoose.locations = require("../models/location")(mongoose);
-mongoose.journeys = require("../models/journey")(mongoose);
-mongoose.bills = require("../models/bill")(mongoose);
+mongoose.locations = require("../models/location.model")(mongoose);
+mongoose.journeys = require("../models/journey.model")(mongoose);
+mongoose.bills = require("../models/bill.model")(mongoose);
 const bcrypt = require("bcryptjs");
+const environment = process.env.NODE_ENV;
+let dbConfig = require("../config/db.config.js")[environment];
 
 mongoose
-    .connect("mongodb://localhost:27017/highwaytrackerdb_testing", {
+    .connect(dbConfig.url, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     })
@@ -31,16 +33,16 @@ const locations = [
         _id: "123456789101",
         name: "test_location_1",
         coordinates: {
-            longitude: 10,
-            latitude: 10
+            longitude: 50,
+            latitude: 50
         }
     },
     {
         _id: "123456789102",
         name: "test_location_2",
         coordinates: {
-            longitude: 10,
-            latitude: 10
+            longitude: 0,
+            latitude: 0
         }
     }
 ]
@@ -84,10 +86,10 @@ const seedDB = async () => {
         await mongoose.connection.collections[collection].deleteMany()
     }
     
-    await mongoose.users.insertMany(users);
-    await mongoose.locations.insertMany(locations);
-    await mongoose.journeys.insertMany(journeys);
-    await mongoose.bills.insertMany(bills)
+    await mongoose.users.create(users);
+    await mongoose.locations.create(locations);
+    await mongoose.journeys.create(journeys);
+    await mongoose.bills.create(bills)
 };
 
 seedDB()
