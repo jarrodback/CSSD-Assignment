@@ -1,6 +1,4 @@
-﻿const haversine = require('haversine-distance')
-
-module.exports = mongoose => {
+﻿module.exports = mongoose => {
  const journeySchema = mongoose.Schema(
    {
     regNumber: {
@@ -22,10 +20,6 @@ module.exports = mongoose => {
     }
    }
  )
- 
- journeySchema.methods.getJourneyDistance = function() {
-  return haversine(this.entryLocation.coordinates, this.exitLocation.coordinates)
- }
  
  return mongoose.model("journey", journeySchema)
 }

@@ -4,7 +4,7 @@ const httpError = require("http-errors");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
-class UserBusiness {
+module.exports = class UserBusiness {
     constructor() {
         // Create an instance of the data layer.
         this.dataLayer = new DataLayer(model);
@@ -47,8 +47,7 @@ class UserBusiness {
                     id: user._id,
                 };
             })
-            .catch(() => {
-                throw httpError(400, "Your email or password is incorrect.");
+            .catch(() => {throw httpError(400, "Your email or password is incorrect.");
             });
     }
 
@@ -104,15 +103,10 @@ class UserBusiness {
             });
     }
 }
-module.exports = UserBusiness;
 
 /**
  *  Validates the data in a User.
  */
 function isUserDataValid(user) {
-    if (!user || !user.username || !user.email || !user.password) {
-        return false;
-    } else {
-        return true;
-    }
+    return !(!user || !user.username || !user.email || !user.password);
 }

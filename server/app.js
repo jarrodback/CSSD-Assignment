@@ -8,7 +8,7 @@ const cookieParser = require("cookie-parser");
 require("./database");
 require("dotenv").config();
 
-var app = express();
+const app = express();
 
 app.use(
     cookieSession({
@@ -24,8 +24,8 @@ app.use(cors({ origin: "http://localhost:8080", credentials: true }));
 /**
  * Router setup
  */
-var authRouter = require("./routes/auth.routes");
-
+const authRouter = require("./routes/auth.routes");
+const billRouter = require("./routes/bill.routes");
 /**
  * View Engine setup
  */
@@ -40,5 +40,6 @@ app.use(cookieParser());
 
 // Configuring the main routes
 app.use("/auth", authRouter);
+app.use("/bill", billRouter)
 
 module.exports = app;

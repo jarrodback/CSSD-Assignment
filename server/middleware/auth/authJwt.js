@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 
 // Check if token is valid
-checkJwtToken = (req, res, next) => {
+const checkJwtToken = (req, res, next) => {
     if (!req.session || !req.session.token) {
         return res.status(401).send({
             message: "Unauthorized: No token provided.",
@@ -24,10 +24,10 @@ checkJwtToken = (req, res, next) => {
     });
 };
 
-isOperator = (req, res, next) => {
+const isOperator = (req, res, next) => {
     const type = req.type;
 
-    if (type != "Toll Operator") {
+    if (type !== "Toll Operator") {
         return res.status(403).send({
             message:
                 "Unauthorized: You not do have permission to view this page.",

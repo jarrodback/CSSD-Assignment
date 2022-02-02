@@ -1,11 +1,9 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Node.js CI
+name: Build-Test-Deploy Pipeline
 
 on:
-  push:
-    branches: [ develop ]
   pull_request:
     branches: [ develop ]
 
@@ -36,15 +34,15 @@ jobs:
         cd server
         npm ci
         npm run build --if-present
-    - name: Server - run tests    
-      run: |
-        cd server
-        npm test
     - name: UI - run build
       run: |
         cd ui
         npm ci
         npm run build --if-present
+    - name: Server - run tests    
+      run: |
+        cd server
+        npm test
     - name: UI - run tests    
       run: |
         cd ui
@@ -52,9 +50,10 @@ jobs:
     - name: Code Coverage
       uses: romeovs/lcov-reporter-action@v0.2.16
       with:
-        lcov-file: ./coverage/lcov.info
+        lcov-file: ./server/coverage/lcov.info
+        github-token: ${{ secrets.GITHUB_TOKEN }}
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@v4.2.3
       with:
         branch: gh-pages
-        folder: develop
+        folder: ./ui/dist/
