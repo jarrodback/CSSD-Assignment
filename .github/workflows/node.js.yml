@@ -47,7 +47,7 @@ jobs:
         cd ui
         npm test
     - name: Code Coverage
-    - if: github.event_name == 'pull_request'
+      if: github.event_name == 'pull_request'
       uses: romeovs/lcov-reporter-action@v0.2.16
       with:
         lcov-file: ./server/coverage/lcov.info
