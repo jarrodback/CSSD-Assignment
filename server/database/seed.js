@@ -7,6 +7,7 @@ const bcrypt = require("bcryptjs");
 const environment = process.env.NODE_ENV;
 let dbConfig = require("../config/db.config.js")[environment];
 
+console.log(dbConfig)
 mongoose
     .connect(dbConfig.url, {
         useNewUrlParser: true,
