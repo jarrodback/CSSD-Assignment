@@ -37,10 +37,10 @@
       <span class="input-group w-auto align-items-baseline">
         <span class="input-group-append mr-2">Per Page: </span>
         <b-form-select v-model="limit" :options="[5, 10, 15]" class="custom-select custom-select-sm"
-                       @change="getCatalogItems" />
+                       @change="getBills" />
       </span>
-      <b-pagination :per-page="limit" :total-rows="totalCount" v-model="offset" @input="getCatalogItems"></b-pagination>
-      <span>{{ totalCount }} books in {{ Math.ceil(totalCount / limit) }} pages</span>
+      <b-pagination :per-page="limit" :total-rows="totalCount" v-model="offset" @input="getBills"></b-pagination>
+      <span>{{ totalCount }} bills in {{ Math.ceil(totalCount / limit) }} pages</span>
     </div>
   </div>
 </template>
@@ -84,10 +84,16 @@ export default Vue.extend({
   },
   methods: {
     formatDate,
-    formatCost
+    formatCost,
+    async getBills() {
+      const data = await api.getAllBills({limit: this.limit, offset: parseInt(this.offset - 1)}) //TODO: Filter by DriverId
+      console.log(data)
+      this.bills = data.bills
+      this.totalCount = data.count
+    }
   },
   async created() {
-    this.bills = await api.getAllBills({}) //TODO: Filter by DriverId
+    await this.getBills()
   }
 })
 </script>
