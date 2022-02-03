@@ -1,16 +1,16 @@
 ﻿<template>
   <div class="mt-4">
     <h1 class="mb-4">My Bills</h1>
-    <b-table :items="filteredBills" :fields="fields" show-empty empty-text="No bills match the filter." responsive striped>
-      <template #head(entrylocation)="head">
+    <b-table id="bills-table" :items="filteredBills" :fields="fields" show-empty empty-text="No bills match the filter." responsive striped>
+      <template #head(entrylocation)="head" id="entry-location-filter">
         {{head.label}}
         <b-input size="sm" v-model="filter.entryLocation" placeholder="Entry Location..."/>
       </template>
-      <template #head(exitlocation)="head">
+      <template #head(exitlocation)="head" id="exit-location-filter">
         {{ head.label }}
         <b-input size="sm" v-model="filter.exitLocation" placeholder="Exit Location..." />
       </template>
-      <template #head(carregistrationnumber)="head">
+      <template #head(carregistrationnumber)="head" id="car-reg-filter">
         {{ head.label }}
         <b-input size="sm" v-model="filter.carRegistrationNumber" placeholder="Car Registration Number..." />
       </template>

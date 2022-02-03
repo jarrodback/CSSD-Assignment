@@ -16,7 +16,7 @@ export function formatDate(date) {
  return dayjs(date).format('ddd D MMM YYYY @ H:mm')
 }
 
-export function formatCost(price) {
+export function formatCost(cost) {
  const selectedCurrency = store.getters.selectedCurrency
- return new Intl.NumberFormat(undefined, {style: 'currency', currency: selectedCurrency}).format(Number.parseFloat(fx.convert(price, {from: 'NOK', to: selectedCurrency})))
+ return new Intl.NumberFormat(undefined, {style: 'currency', currency: selectedCurrency}).format(Number.parseFloat(fx.convert(cost, {from: 'NOK', to: selectedCurrency})))
 }
