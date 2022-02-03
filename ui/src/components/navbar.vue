@@ -16,7 +16,7 @@
       </b-nav-item-dropdown>
       <b-nav-item-dropdown right class="mr-3" id="currencies">
         <template #button-content>
-          <img src="@/assets/money.png" alt="money icon" height="50" class="mr-2" /><span id="selected-currency">{{ selectedCurrency }}<span>
+          <img src="@/assets/money.png" alt="money icon" height="50" class="mr-2" /><span id="selected-currency">{{ selectedCurrency }}</span>
         </template>
         <b-dropdown-item @click="updateCurrencies('NOK')" id="NOK">NOK</b-dropdown-item>
         <b-dropdown-item @click="updateCurrencies('SEK')" id="SEK">SEK</b-dropdown-item>
