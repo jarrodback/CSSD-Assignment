@@ -1,0 +1,31 @@
+﻿@import '~bootstrap/dist/css/bootstrap.css';
+@import '~bootstrap-vue/dist/bootstrap-vue.css';
+
+$Navy-Blue: #3c4253;
+$White: white;
+
+.navbar {
+    background-color: $Navy-Blue;
+}
+
+.nav-link {
+    color: $White !important;
+}
+
+h4 {
+    color: $White;
+}
+
+.navy-blue-text {
+    color: $Navy-Blue;
+}
+
+.white-text {
+    color: $White;
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 75% !important;
+    }
+}
