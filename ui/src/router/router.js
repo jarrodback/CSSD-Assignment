@@ -15,7 +15,10 @@ const routes = [
  {
   path: '/my-bills',
   name: 'MyBills',
-  component: MyBills
+  component: MyBills,
+  meta: {
+   title: 'My Bills'
+  }
  },
  {
   path: '/my-bills/:id',
@@ -28,6 +31,11 @@ const router = new VueRouter({
  mode: 'history',
  base: process.env.BASE_URL,
  routes
+})
+
+router.beforeEach((to, from, next) => {
+ document.title = to.meta.title
+ next()
 })
 
 export default router

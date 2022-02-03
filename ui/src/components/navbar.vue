@@ -5,16 +5,16 @@
       <h4 class="ml-3 mb-0">Self Service Portal</h4>
     </div>
     <b-navbar-nav class="ml-auto">
-      <b-nav-item right>
+      <b-nav-item right class="mr-3">
         <img src="@/assets/support.png" alt="support icon" height="50" class="mr-2" />Help
       </b-nav-item>
-      <b-nav-item-dropdown right>
+      <b-nav-item-dropdown right class="mr-3">
         <template #button-content>
           <img src="@/assets/global.png" alt="language icon" height="50" class="mr-2"/>{{ selectedLanguage }}
         </template>
         <b-dropdown-item v-for="lang in languages" :key="lang" @click="language = lang">{{lang}}</b-dropdown-item>
       </b-nav-item-dropdown>
-      <b-nav-item-dropdown right>
+      <b-nav-item-dropdown right class="mr-3">
         <template #button-content>
           <img src="@/assets/money.png" alt="money icon" height="50" class="mr-2" />{{ selectedCurrency }}
         </template>
