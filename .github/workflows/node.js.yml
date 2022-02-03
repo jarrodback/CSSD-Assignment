@@ -61,10 +61,20 @@ jobs:
       with:
         name: build-ui
 
-    - name: UI - run tests    
+    - name: UI - run unit tests    
       run: |
         npm i
-        npm test
+        npm run test:unit
+
+    - name: UI - run integration tests    
+      run: |
+        npm run test:e2e
+
+    - uses: actions/upload-artifact@master
+      with:
+        name: coverage-ui
+        path: |
+          coverage
 
   test-server:
     runs-on: ubuntu-latest
@@ -84,7 +94,7 @@ jobs:
       with:
         name: build-server
 
-    - name: Server - run tests   
+    - name: Server - run unit and integration tests   
       run: |
         npm i
         npm test
@@ -106,7 +116,17 @@ jobs:
       with:
         name: coverage-server
 
-    - name: Code Coverage
+    - name: Code Coverage Server
+      uses: romeovs/lcov-reporter-action@v0.3.1
+      with:
+        lcov-file: lcov.info
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+
+    - uses: actions/download-artifact@master
+      with:
+        name: coverage-ui
+
+    - name: Code Coverage UI
       uses: romeovs/lcov-reporter-action@v0.3.1
       with:
         lcov-file: lcov.info
