@@ -5,10 +5,8 @@ name: Build-Test-Deploy Pipeline
 
 on:
   workflow_dispatch:
-
+  pull_request:
   push:
-    paths-ignore:
-    - 'README.md'
 
 jobs:
   build:
