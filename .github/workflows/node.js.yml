@@ -4,7 +4,9 @@
 name: Build-Test-Deploy Pipeline
 
 on:
-  [push, pull_request]
+  push:
+  pull_request:
+    branches: [ develop ]
 
 jobs:
   build:
@@ -118,6 +120,8 @@ jobs:
     - uses: actions/download-artifact@master
       with:
         name: build-ui
+
+    - uses: actions/checkout@v2
 
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@v4.2.3
