@@ -92,6 +92,7 @@ jobs:
 
     - name: UI - start server for test   
       run: |
+        npm i
         npm start
 
     - uses: actions/download-artifact@master
