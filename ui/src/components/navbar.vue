@@ -5,6 +5,9 @@
       <h4 class="ml-3 mb-0">Self Service Portal</h4>
     </div>
     <b-navbar-nav class="ml-auto">
+      <b-nav-item right>
+        <img src="@/assets/support.png" alt="support icon" height="50" class="mr-2" />Help
+      </b-nav-item>
       <b-nav-item-dropdown right>
         <template #button-content>
           <img src="@/assets/global.png" alt="language icon" height="50" class="mr-2"/>{{ selectedLanguage }}
