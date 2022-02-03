@@ -43,27 +43,38 @@ jobs:
 
     - uses: actions/upload-artifact@master
       with:
-        name: build
+        name: build-ui
         path: |
           ui
           !ui/node_modules
+        name: build-server
+        path: |
+          server
+          !server/node_modules
 
-  test:
+  test-ui:
     runs-on: ubuntu-latest
     needs: [build]
 
     steps:
     - uses: actions/download-artifact@master
       with:
-        name: build
+        name: build-ui
 
     - name: UI - run tests    
       run: |
         npm test
 
-    - name: Server - run tests    
+  test-server:
+    runs-on: ubuntu-latest
+    needs: [build]
+
+    steps:
+    - uses: actions/download-artifact@master
+      with:
+        name: build-server
+    - name: Server - run tests   
       run: |
-        cd server
         npm test
 
   coverage:
