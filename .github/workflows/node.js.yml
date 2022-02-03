@@ -61,10 +61,14 @@ jobs:
       with:
         name: build-ui
 
-    - name: UI - run tests    
+    - name: UI - run unit tests    
       run: |
         npm i
-        npm test
+        npm test:unit
+
+    - name: UI - run integration tests    
+      run: |
+        npm test:e2e
 
   test-server:
     runs-on: ubuntu-latest
@@ -84,7 +88,7 @@ jobs:
       with:
         name: build-server
 
-    - name: Server - run tests   
+    - name: Server - run unit and integration tests   
       run: |
         npm i
         npm test
