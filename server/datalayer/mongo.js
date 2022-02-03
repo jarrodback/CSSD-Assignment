@@ -12,6 +12,11 @@ class DataLayer {
           .limit(filter.limit)
           .skip(filter.offset * filter.limit)
           .populate(JSON.parse(JSON.stringify(populateFilter)))
+          .then((bills) => {
+              return this.model.countDocuments().then((count) => {
+                  return {bills: bills, count: count}
+              })
+          })
     }
     
     /**

@@ -5,6 +5,9 @@ node_modules
 server/.nyc_output/*.json
 server/.nyc_output/processinfo/*.json
 server/coverage/lcov-report
+ui/coverage/lcov-report
+ui/coverage/clover.xml
+ui/coverage/coverage-final.json
 
 # local env files
 .env.local
