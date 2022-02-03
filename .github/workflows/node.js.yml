@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -38,6 +37,8 @@ jobs:
         cd ui
         npm ci
         npm run build --if-present
+  test:
+    runs-on: ubuntu-latest
     - name: Server - run tests    
       run: |
         cd server
@@ -46,12 +47,17 @@ jobs:
       run: |
         cd ui
         npm test
+  coverage:
+    runs-on: ubuntu-latest
     - name: Code Coverage
+      if: >- 
+        github.event_name == 'pull_request'
       uses: romeovs/lcov-reporter-action@v0.3.1
       with:
         lcov-file: ./server/coverage/lcov.info
         github-token: ${{ secrets.GITHUB_TOKEN }}
-      if: github.event_name == 'pull_request'
+  deploy:
+    runs-on: ubuntu-latest
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@v4.2.3
       with:
