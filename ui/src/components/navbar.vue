@@ -18,8 +18,8 @@
         <template #button-content>
           <img src="@/assets/money.png" alt="money icon" height="50" class="mr-2" />{{ selectedCurrency }}
         </template>
-        <b-dropdown-item @click="language = 'GBP'">GBP</b-dropdown-item>
-        <b-dropdown-item @click="language = 'EUR'">EUR</b-dropdown-item>
+        <b-dropdown-item @click="currency = 'GBP'">GBP</b-dropdown-item>
+        <b-dropdown-item @click="currency = 'EUR'">EUR</b-dropdown-item>
       </b-nav-item-dropdown>
       <b-nav-item-dropdown right>
         <template #button-content>

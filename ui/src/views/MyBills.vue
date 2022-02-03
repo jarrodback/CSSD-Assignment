@@ -87,7 +87,6 @@ export default Vue.extend({
     formatCost,
     async getBills() {
       const data = await api.getAllBills({limit: this.limit, offset: parseInt(this.offset - 1)}) //TODO: Filter by DriverId
-      console.log(data)
       this.bills = data.bills
       this.totalCount = data.count
     }
