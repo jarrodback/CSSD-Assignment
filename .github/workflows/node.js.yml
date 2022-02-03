@@ -44,7 +44,7 @@ jobs:
     - uses: actions/upload-artifact@master
       with:
         name: build
-        path: node/build
+        path: .
 
   test:
     runs-on: ubuntu-latest
@@ -54,7 +54,7 @@ jobs:
     - uses: actions/download-artifact@master
       with:
         name: build
-        path: node/build
+        path: .
     - name: Server - run tests    
       run: |
         cd server
