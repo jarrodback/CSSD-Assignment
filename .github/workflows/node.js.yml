@@ -61,6 +61,7 @@ jobs:
 
     - name: UI - run tests    
       run: |
+        npp i
         npm test
 
   test-server:
@@ -82,6 +83,7 @@ jobs:
         name: build-server
     - name: Server - run tests   
       run: |
+        npm i
         npm test
 
   coverage:
