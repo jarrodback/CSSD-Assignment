@@ -18,8 +18,12 @@
         <template #button-content>
           <img src="@/assets/money.png" alt="money icon" height="50" class="mr-2" />{{ selectedCurrency }}
         </template>
-        <b-dropdown-item @click="currency = 'GBP'">GBP</b-dropdown-item>
-        <b-dropdown-item @click="currency = 'EUR'">EUR</b-dropdown-item>
+        <b-dropdown-item @click="updateCurrencies('NOK')">NOK</b-dropdown-item>
+        <b-dropdown-item @click="updateCurrencies('SEK')">SEK</b-dropdown-item>
+        <b-dropdown-item @click="updateCurrencies('ISK')">ISK</b-dropdown-item>
+        <b-dropdown-item @click="updateCurrencies('DKK')">DKK</b-dropdown-item>
+        <b-dropdown-item @click="updateCurrencies('GBP')">GBP</b-dropdown-item>
+        <b-dropdown-item @click="updateCurrencies('EUR')">EUR</b-dropdown-item>
       </b-nav-item-dropdown>
       <b-nav-item-dropdown right>
         <template #button-content>
@@ -33,13 +37,19 @@
 
 <script lang="ts">
 import Vue from 'vue';
-
+import store from '../store/store'
 export default Vue.extend({
   name: "navbar",
   data() {
     return {
       language: 'English',
-      currency: 'GBP'
+      currency: 'NOK'
+    }
+  },
+  methods: {
+    updateCurrencies(selectedCurrency) {
+      this.currency = selectedCurrency
+      store.dispatch('updateSelectedCurrency', selectedCurrency)
     }
   },
   computed: {
@@ -52,6 +62,9 @@ export default Vue.extend({
     selectedCurrency() {
       return this.currency
     }
+  },
+  created() {
+    store.dispatch('updateSelectedCurrency', this.currency)
   }
 })
 </script>
