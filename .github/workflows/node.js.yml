@@ -45,10 +45,8 @@ jobs:
       with:
         name: build
         path: |
-          ui/dist
-          ui/package.json
-          ui/package-lock.json
-          ui/src/test
+          .
+          !node_modules
 
   test:
     runs-on: ubuntu-latest
@@ -58,11 +56,6 @@ jobs:
     - uses: actions/download-artifact@master
       with:
         name: build
-        path: |
-          ui/dist
-          ui/package.json
-          ui/package-lock.json
-          ui/src/test
 
     - name: UI - run tests    
       run: |
