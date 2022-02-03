@@ -4,7 +4,7 @@
 name: Build-Test-Deploy Pipeline
 
 on:
-  push
+  [push, pull_request]
 
 jobs:
   build:
@@ -21,35 +21,50 @@ jobs:
       uses: supercharge/mongodb-github-action@1.2.0
       with:
         mongodb-version: ${{ matrix.mongodb-version }}
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
         cache-dependency-path: server/package-lock.json
+
     - name: Server - run build
       run: |
         cd server
         npm ci
         npm run build --if-present
+
     - name: UI - run build
       run: |
         cd ui
         npm ci
         npm run build --if-present
+
+    - uses: actions/upload-artifact@master
+      with:
+        name: build
+        path: node/build
+
   test:
     runs-on: ubuntu-latest
     needs: [build]
 
     steps:
+    - uses: actions/download-artifact@master
+      with:
+        name: build
+        path: node/build
     - name: Server - run tests    
       run: |
         cd server
         npm test
+
     - name: UI - run tests    
       run: |
         cd ui
         npm test
+
   coverage:
     runs-on: ubuntu-latest
     needs: [test]
@@ -62,6 +77,7 @@ jobs:
       with:
         lcov-file: ./server/coverage/lcov.info
         github-token: ${{ secrets.GITHUB_TOKEN }}
+
   deploy:
     runs-on: ubuntu-latest
     needs: [coverage]
