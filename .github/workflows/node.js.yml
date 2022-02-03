@@ -117,11 +117,11 @@ jobs:
     needs: [test-server,test-ui]
 
     steps:
+    - uses: actions/checkout@v2
+
     - uses: actions/download-artifact@master
       with:
         name: build-ui
-
-    - uses: actions/checkout@v2
 
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@v4.2.3
