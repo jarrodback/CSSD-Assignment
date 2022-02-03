@@ -80,11 +80,6 @@ jobs:
       matrix:
         mongodb-version: [4.2]
 
-    steps:
-    - uses: actions/download-artifact@master
-      with:
-        name: build-ui
-
     - uses: actions/download-artifact@master
       with:
         name: build-server
@@ -96,8 +91,12 @@ jobs:
 
     - name: UI - start server for test   
       run: |
-        cd ./server/
         npm start
+
+    steps:
+    - uses: actions/download-artifact@master
+      with:
+        name: build-ui
 
     - name: UI - run integration tests    
       run: |
