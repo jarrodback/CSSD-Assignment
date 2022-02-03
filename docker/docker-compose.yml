@@ -1,0 +1,56 @@
+version: "2"
+services:
+  web:
+    image: "highway-ui"
+    ports: 
+    - "8080:8080"
+    networks:
+    - frontend
+    depends_on:
+      - server
+    links:
+      - server
+  server:
+    image: "highway-server"
+    ports:
+    - "3000:3000"
+    depends_on:
+      - mongo
+    links:
+      - mongo
+    networks:
+      - backend
+      - frontend
+  mongo:
+    image: "mongo"
+    ports: 
+    - "27017:27017"
+    networks:
+      - backend
+
+networks:
+  frontend:
+  backend:
+
+ 
+#  DB
+
+# Run
+# docker run -v mongodata:/data/db -d -p 27017:27017 --name highway-db highway-db
+ 
+# UI
+ 
+# Run
+# docker run -d -p 8080:8080 --rm --name highway-ui- highway-ui
+
+# Build
+# docker build -t highway-ui .
+
+
+# Server
+
+# Run
+# docker run -d -p 3000:3000 --rm --name highway-server highway-server
+
+# Build
+# docker build -t highway-server .

@@ -29,7 +29,6 @@ db.mongoose.plugin((schema) => {
 function setRunValidators() {
     this.setOptions({ runValidators: true });
 }
-
 // Using the mongoose object, start the database
 db.mongoose
     .connect(db.url, {
