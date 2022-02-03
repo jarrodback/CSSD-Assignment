@@ -37,6 +37,7 @@ jobs:
 
     - name: UI - run build
       run: |
+        cd ui
         npm ci
         npm run build --if-present
 
@@ -58,7 +59,6 @@ jobs:
 
     - name: UI - run tests    
       run: |
-        cd ui
         npm test
 
     - name: Server - run tests    
