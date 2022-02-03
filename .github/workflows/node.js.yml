@@ -45,8 +45,8 @@ jobs:
       with:
         name: build
         path: |
-          .
-          !node_modules
+          ui
+          !ui/node_modules
 
   test:
     runs-on: ubuntu-latest
