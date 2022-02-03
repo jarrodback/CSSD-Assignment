@@ -46,6 +46,9 @@ jobs:
         name: build
         path: |
           ui/dist
+          ui/package.json
+          ui/package-lock.json
+          ui/src/test
 
   test:
     runs-on: ubuntu-latest
@@ -57,6 +60,9 @@ jobs:
         name: build
         path: |
           ui/dist
+          ui/package.json
+          ui/package-lock.json
+          ui/src/test
 
     - name: UI - run tests    
       run: |
