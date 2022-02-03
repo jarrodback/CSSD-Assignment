@@ -18,5 +18,5 @@ export function formatDate(date) {
 
 export function formatCost(price) {
  const selectedCurrency = store.getters.selectedCurrency
- return new Intl.NumberFormat(undefined, {style: 'currency', currency: selectedCurrency}).format(Number.parseInt(fx.convert(price, {from: 'NOK', to: selectedCurrency})))
+ return new Intl.NumberFormat(undefined, {style: 'currency', currency: selectedCurrency}).format(Number.parseFloat(fx.convert(price, {from: 'NOK', to: selectedCurrency})))
 }
