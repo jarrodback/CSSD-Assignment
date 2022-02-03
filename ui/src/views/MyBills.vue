@@ -51,21 +51,24 @@ import api from "@/api/api";
 import { formatDate, formatCost } from "@/utilities";
 
 export default Vue.extend({
-  name: 'MyBills',
+  name: 'MyBills', //Sets the name of file.
   data () {
     return {
-      bills: [],
-      totalCount: 0,
-      limit: 10,
-      offset: 1,
+      bills: [], //Stores the list of bills from the api.
+      totalCount: 0, //Stores the total count of all bills.
+      limit: 10, //Stores the amount of items to be displayed in the table.
+      offset: 1, //Stores the page number of the table.
       filter: {
-        entryLocation: '',
-        exitLocation: '',
-        carRegistrationNumber: ''
+        entryLocation: '', //Stores the entry location filter.
+        exitLocation: '', //Stores the exit location filter.
+        carRegistrationNumber: '' //Stores the car registration number filter.
       }
     }
   },
   computed: {
+    /**
+     * Returns a list of headings to be used in the table and states if they are sortable fields.
+     */
     fields() {
       return [{key: 'EntryLocation', sortable: false}, 
         {key: 'ExitLocation', sortable: false},
@@ -74,6 +77,9 @@ export default Vue.extend({
         {key: 'Cost', sortable: true},
         {key: 'Actions', sortable: false}]
     },
+    /**
+     * Returns a filtered list of bills based on the text input filters.
+     */
     filteredBills() {
       return this.bills.filter((bill) => 
           bill.journey.entryLocation.name.includes(this.filter.entryLocation) &&
@@ -83,14 +89,20 @@ export default Vue.extend({
     }
   },
   methods: {
-    formatDate,
-    formatCost,
+    formatDate, //Import the format date helper function to be used in the template.
+    formatCost, //Import the format cost helper function to be used in the template.
+    /**
+     * Gets a list of bills from the api and sets the bills and totalcount variables.
+     */
     async getBills() {
       const data = await api.getAllBills({limit: this.limit, offset: parseInt(this.offset - 1)}) //TODO: Filter by DriverId
       this.bills = data.bills
       this.totalCount = data.count
     }
   },
+  /**
+   * Gets a list of bills on create.
+   */
   async created() {
     await this.getBills()
   }

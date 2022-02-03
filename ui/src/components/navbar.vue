@@ -39,30 +39,46 @@
 import Vue from 'vue';
 import store from '../store/store'
 export default Vue.extend({
-  name: "navbar",
+  name: "navbar", //Sets the name of the file.
   data() {
     return {
-      language: 'English',
-      currency: 'NOK'
+      language: 'English', //The selected language.
+      currency: 'NOK' //The selected currency.
     }
   },
   methods: {
+    /**
+     * Updates the selected currency in the store.
+     * @param selectedCurrency
+     */
     updateCurrencies(selectedCurrency) {
       this.currency = selectedCurrency
       store.dispatch('updateSelectedCurrency', selectedCurrency)
     }
   },
   computed: {
+    /**
+     * Returns a list of language options which are displayed in the languages dropdown.
+     */
     languages() {
       return ['Bulgarian', 'Czech', 'Danish', 'Dutch', 'English', 'Estonian', 'Finnish', 'French', 'German', 'Greek', 'Hungarian', 'Irish', 'Italian', 'Latvian', 'Lithuanian', 'Maltese', 'Polish', 'Portuguese', 'Romanian', 'Slovak', 'Slovene', 'Spanish', 'Swedish']
     },
+    /**
+     * Sets the selected language.
+     */
     selectedLanguage() {
       return this.language
     },
+    /**
+     * Sets the selected currency.
+     */
     selectedCurrency() {
       return this.currency
     }
   },
+  /**
+   * Sets the selected currency on create.
+   */
   created() {
     store.dispatch('updateSelectedCurrency', this.currency)
   }

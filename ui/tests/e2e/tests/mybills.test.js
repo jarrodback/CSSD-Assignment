@@ -1,6 +1,9 @@
 ﻿describe('My Bills Tests', () => {
  it('displays two rows in the bills table', () => {
+  //Act
   cy.visit('/my-bills')
+  
+  //Assert
   cy.get('#bills-table').find('tbody tr').should('have.length', 2)
  })
  

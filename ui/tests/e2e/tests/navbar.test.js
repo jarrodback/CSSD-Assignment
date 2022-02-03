@@ -2,6 +2,7 @@
  
  context('Languages Dropdown', () => {
   it('shows 23 languages when the languages dropdown is clicked', () => {
+   //Act
    cy.visit('/my-bills')
    cy.get('#languages').click()
 
@@ -10,6 +11,7 @@
   })
 
   it('selected language changes to Bulgarian when the Bulgarian option is selected', () => {
+   //Act
    cy.visit('/my-bills')
    cy.get('#languages').click()
    cy.get('#Bulgarian').click()
@@ -19,6 +21,7 @@
   })
 
   it('selected language changes to Czech when the Czech option is selected', () => {
+   //Act
    cy.visit('/my-bills')
    cy.get('#languages').click()
    cy.get('#Czech').click()
@@ -28,6 +31,7 @@
   })
 
   it('selected language changes to Danish when the Danish option is selected', () => {
+   //Act
    cy.visit('/my-bills')
    cy.get('#languages').click()
    cy.get('#Danish').click()
@@ -37,6 +41,7 @@
   })
 
   it('selected language changes to Dutch when the Dutch option is selected', () => {
+   //Act
    cy.visit('/my-bills')
    cy.get('#languages').click()
    cy.get('#Dutch').click()
@@ -46,6 +51,7 @@
   })
 
   it('selected language changes to English when the English option is selected', () => {
+   //Act
    cy.visit('/my-bills')
    cy.get('#languages').click()
    cy.get('#English').click()
@@ -55,6 +61,7 @@
   })
 
   it('selected language changes to Estonian when the Estonian option is selected', () => {
+   //Act
    cy.visit('/my-bills')
    cy.get('#languages').click()
    cy.get('#Estonian').click()
@@ -64,6 +71,7 @@
   })
 
   it('selected language changes to Finnish when the Finnish option is selected', () => {
+   //Act
    cy.visit('/my-bills')
    cy.get('#languages').click()
    cy.get('#Finnish').click()
@@ -73,6 +81,7 @@
   })
 
   it('selected language changes to French when the French option is selected', () => {
+   //Act
    cy.visit('/my-bills')
    cy.get('#languages').click()
    cy.get('#French').click()
@@ -82,6 +91,7 @@
   })
 
   it('selected language changes to German when the German option is selected', () => {
+   //Act
    cy.visit('/my-bills')
    cy.get('#languages').click()
    cy.get('#German').click()
@@ -91,6 +101,7 @@
   })
 
   it('selected language changes to Greek when the Greek option is selected', () => {
+   //Act
    cy.visit('/my-bills')
    cy.get('#languages').click()
    cy.get('#Greek').click()
@@ -100,6 +111,7 @@
   })
 
   it('selected language changes to Hungarian when the Hungarian option is selected', () => {
+   //Act
    cy.visit('/my-bills')
    cy.get('#languages').click()
    cy.get('#Hungarian').click()
@@ -109,6 +121,7 @@
   })
 
   it('selected language changes to Irish when the Irish option is selected', () => {
+   //Act
    cy.visit('/my-bills')
    cy.get('#languages').click()
    cy.get('#Irish').click()
@@ -118,6 +131,7 @@
   })
 
   it('selected language changes to Italian when the Italian option is selected', () => {
+   //Act
    cy.visit('/my-bills')
    cy.get('#languages').click()
    cy.get('#Italian').click()
@@ -127,6 +141,7 @@
   })
 
   it('selected language changes to Latvian when the Latvian option is selected', () => {
+   //Act
    cy.visit('/my-bills')
    cy.get('#languages').click()
    cy.get('#Latvian').click()
@@ -136,6 +151,7 @@
   })
 
   it('selected language changes to Lithuanian when the Lithuanian option is selected', () => {
+   //Act
    cy.visit('/my-bills')
    cy.get('#languages').click()
    cy.get('#Lithuanian').click()
@@ -145,6 +161,7 @@
   })
 
   it('selected language changes to Maltese when the Maltese option is selected', () => {
+   //Act
    cy.visit('/my-bills')
    cy.get('#languages').click()
    cy.get('#Maltese').click()
@@ -154,6 +171,7 @@
   })
 
   it('selected language changes to Polish when the Polish option is selected', () => {
+   //Act
    cy.visit('/my-bills')
    cy.get('#languages').click()
    cy.get('#Polish').click()
@@ -163,6 +181,7 @@
   })
 
   it('selected language changes to Portuguese when the Portuguese option is selected', () => {
+   //Act
    cy.visit('/my-bills')
    cy.get('#languages').click()
    cy.get('#Portuguese').click()
@@ -172,6 +191,7 @@
   })
 
   it('selected language changes to Romanian when the Romanian option is selected', () => {
+   //Act
    cy.visit('/my-bills')
    cy.get('#languages').click()
    cy.get('#Romanian').click()
@@ -181,6 +201,7 @@
   })
 
   it('selected language changes to Slovak when the Slovak option is selected', () => {
+   //Act
    cy.visit('/my-bills')
    cy.get('#languages').click()
    cy.get('#Slovak').click()
@@ -190,6 +211,7 @@
   })
 
   it('selected language changes to Slovene when the Slovene option is selected', () => {
+   //Act
    cy.visit('/my-bills')
    cy.get('#languages').click()
    cy.get('#Slovene').click()
@@ -199,6 +221,7 @@
   })
 
   it('selected language changes to Spanish when the Spanish option is selected', () => {
+   //Act
    cy.visit('/my-bills')
    cy.get('#languages').click()
    cy.get('#Spanish').click()
@@ -208,6 +231,7 @@
   })
 
   it('selected language changes to Swedish when the Swedish option is selected', () => {
+   //Act
    cy.visit('/my-bills')
    cy.get('#languages').click()
    cy.get('#Swedish').click()
@@ -220,6 +244,7 @@
 
  context('Profile Dropdown', () => {
   it('shows sign out when the profile dropdown is clicked', () => {
+   //Act
    cy.visit('/my-bills')
    cy.get('#profile').click()
 
@@ -231,6 +256,7 @@
 
  context('Currency Dropdown', () => {
   it('shows 6 currencies when the currency dropdown is clicked', () => {
+   //Act
    cy.visit('/my-bills')
    cy.get('#currencies').click()
 
@@ -239,6 +265,7 @@
   })
 
   it('cost doesnt change when NOK is selected in the currency drop down', () => {
+   //Act
    cy.visit('/my-bills')
    cy.get('#currencies').click()
    cy.get('#NOK').click()
@@ -249,6 +276,7 @@
   })
 
   it('cost updates to 75.86 when SEK is selected in the currency drop down', () => {
+   //Act
    cy.visit('/my-bills')
    cy.get('#currencies').click()
    cy.get('#SEK').click()
@@ -259,6 +287,7 @@
   })
 
   it('cost updates to 1,042 when ISK is selected in the currency drop down', () => {
+   //Act
    cy.visit('/my-bills')
    cy.get('#currencies').click()
    cy.get('#ISK').click()
@@ -269,6 +298,7 @@
   })
 
   it('cost updates to 53.97 when DKK is selected in the currency drop down', () => {
+   //Act
    cy.visit('/my-bills')
    cy.get('#currencies').click()
    cy.get('#DKK').click()
@@ -279,6 +309,7 @@
   })
 
   it('cost updates to 6.13 when GBP is selected in the currency drop down', () => {
+   //Act
    cy.visit('/my-bills')
    cy.get('#currencies').click()
    cy.get('#GBP').click()
@@ -289,6 +320,7 @@
   })
 
   it('cost updates to 7.29 when EUR is selected in the currency drop down', () => {
+   //Act
    cy.visit('/my-bills')
    cy.get('#currencies').click()
    cy.get('#EUR').click()

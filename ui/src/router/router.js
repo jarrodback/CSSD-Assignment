@@ -3,10 +3,13 @@ import VueRouter from "vue-router";
 import MyBills from "@/views/MyBills";
 import PayBill from "@/views/PayBill";
 /**
- * Import Vue Router
+ * Import Vue Router.
  */
 Vue.use(VueRouter)
 
+/**
+ * Declare routes for the my bills and pay bills routes.
+ */
 const routes = [
  {
   path: '/',
@@ -27,12 +30,18 @@ const routes = [
  }
 ]
 
+/**
+ * Creates an instance of Vue Router with history mode enables and injects the routes above.
+ */
 const router = new VueRouter({
  mode: 'history',
  base: process.env.BASE_URL,
  routes
 })
 
+/**
+ * Sets the document title of each page before route enter.
+ */
 router.beforeEach((to, from, next) => {
  document.title = to.meta.title
  next()

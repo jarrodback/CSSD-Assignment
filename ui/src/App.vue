@@ -8,8 +8,8 @@
 <script>
 import Navbar from "@/components/navbar";
 export default {
-  name: 'App',
-  components: {Navbar}
+  name: 'App', //Sets the name of file.
+  components: {Navbar} //Declares the component to be used in the tempalte.
 }
 </script>
 

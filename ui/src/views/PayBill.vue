@@ -8,6 +8,6 @@
 import Vue from 'vue';
 
 export default Vue.extend({
-  name: "PayBill"
+  name: "PayBill" //Sets the name of file.
 })
 </script>
