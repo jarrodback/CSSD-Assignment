@@ -1,31 +1,31 @@
 ﻿<template>
-  <b-navbar class="shadow">
+  <b-navbar class="shadow" id="navbar">
     <div class="d-flex align-items-center">
       <img src="@/assets/creditcard.png" alt="Self Service Portal Logo"/>
       <h4 class="ml-3 mb-0">Self Service Portal</h4>
     </div>
     <b-navbar-nav class="ml-auto">
-      <b-nav-item right class="mr-3">
+      <b-nav-item right class="mr-3" id="support">
         <img src="@/assets/support.png" alt="support icon" height="50" class="mr-2" />Help
       </b-nav-item>
-      <b-nav-item-dropdown right class="mr-3">
+      <b-nav-item-dropdown right class="mr-3" id="languages">
         <template #button-content>
-          <img src="@/assets/global.png" alt="language icon" height="50" class="mr-2"/>{{ selectedLanguage }}
+          <img src="@/assets/global.png" alt="language icon" height="50" class="mr-2"/><span id="selected-language">{{ selectedLanguage }}</span>
         </template>
-        <b-dropdown-item v-for="lang in languages" :key="lang" @click="language = lang">{{lang}}</b-dropdown-item>
+        <b-dropdown-item v-for="lang in languages" :key="lang" @click="language = lang" :id="lang">{{lang}}</b-dropdown-item>
       </b-nav-item-dropdown>
-      <b-nav-item-dropdown right class="mr-3">
+      <b-nav-item-dropdown right class="mr-3" id="currencies">
         <template #button-content>
-          <img src="@/assets/money.png" alt="money icon" height="50" class="mr-2" />{{ selectedCurrency }}
+          <img src="@/assets/money.png" alt="money icon" height="50" class="mr-2" /><span id="selected-currency">{{ selectedCurrency }}<span>
         </template>
-        <b-dropdown-item @click="updateCurrencies('NOK')">NOK</b-dropdown-item>
-        <b-dropdown-item @click="updateCurrencies('SEK')">SEK</b-dropdown-item>
-        <b-dropdown-item @click="updateCurrencies('ISK')">ISK</b-dropdown-item>
-        <b-dropdown-item @click="updateCurrencies('DKK')">DKK</b-dropdown-item>
-        <b-dropdown-item @click="updateCurrencies('GBP')">GBP</b-dropdown-item>
-        <b-dropdown-item @click="updateCurrencies('EUR')">EUR</b-dropdown-item>
+        <b-dropdown-item @click="updateCurrencies('NOK')" id="NOK">NOK</b-dropdown-item>
+        <b-dropdown-item @click="updateCurrencies('SEK')" id="SEK">SEK</b-dropdown-item>
+        <b-dropdown-item @click="updateCurrencies('ISK')" id="ISK">ISK</b-dropdown-item>
+        <b-dropdown-item @click="updateCurrencies('DKK')" id="DKK">DKK</b-dropdown-item>
+        <b-dropdown-item @click="updateCurrencies('GBP')" id="GBP">GBP</b-dropdown-item>
+        <b-dropdown-item @click="updateCurrencies('EUR')" id="EUR">EUR</b-dropdown-item>
       </b-nav-item-dropdown>
-      <b-nav-item-dropdown right>
+      <b-nav-item-dropdown right id="profile">
         <template #button-content>
           <img src="@/assets/profile.png" alt="profile icon" height="50" />
         </template>

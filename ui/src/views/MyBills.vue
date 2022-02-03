@@ -2,17 +2,17 @@
   <div class="mt-4">
     <h1 class="mb-4">My Bills</h1>
     <b-table id="bills-table" :items="filteredBills" :fields="fields" show-empty empty-text="No bills match the filter." responsive striped>
-      <template #head(entrylocation)="head" id="entry-location-filter">
+      <template #head(entrylocation)="head" >
         {{head.label}}
-        <b-input size="sm" v-model="filter.entryLocation" placeholder="Entry Location..."/>
+        <b-input size="sm" v-model="filter.entryLocation" placeholder="Entry Location..." id="entry-location-filter"/>
       </template>
-      <template #head(exitlocation)="head" id="exit-location-filter">
+      <template #head(exitlocation)="head" >
         {{ head.label }}
-        <b-input size="sm" v-model="filter.exitLocation" placeholder="Exit Location..." />
+        <b-input size="sm" v-model="filter.exitLocation" placeholder="Exit Location..." id="exit-location-filter"/>
       </template>
-      <template #head(carregistrationnumber)="head" id="car-reg-filter">
+      <template #head(carregistrationnumber)="head" >
         {{ head.label }}
-        <b-input size="sm" v-model="filter.carRegistrationNumber" placeholder="Car Registration Number..." />
+        <b-input size="sm" v-model="filter.carRegistrationNumber" placeholder="Car Registration Number..." id="car-registration-filter"/>
       </template>
       <template #cell(entrylocation)="cell">
         {{cell.item.journey.entryLocation.name }}
