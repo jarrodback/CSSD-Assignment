@@ -1,7 +1,19 @@
 ﻿<template>
   <div class="mt-4">
     <h1 class="mb-4">My Bills</h1>
-    <b-table :items="bills" :fields="fields" responsive striped>
+    <b-table :items="filteredBills" :fields="fields" show-empty empty-text="No bills match the filter." responsive striped>
+      <template #head(entrylocation)="head">
+        {{head.label}}
+        <b-input size="sm" v-model="filter.entryLocation" placeholder="Entry Location..."/>
+      </template>
+      <template #head(exitlocation)="head">
+        {{ head.label }}
+        <b-input size="sm" v-model="filter.exitLocation" placeholder="Exit Location..." />
+      </template>
+      <template #head(carregistrationnumber)="head">
+        {{ head.label }}
+        <b-input size="sm" v-model="filter.carRegistrationNumber" placeholder="Car Registration Number..." />
+      </template>
       <template #cell(entrylocation)="cell">
         {{cell.item.journey.entryLocation.name }}
       </template>
@@ -21,6 +33,15 @@
         <b-link>Pay Bill</b-link>
       </template>
     </b-table>
+    <div class="d-flex justify-content-between align-items-baseline">
+      <span class="input-group w-auto align-items-baseline">
+        <span class="input-group-append mr-2">Per Page: </span>
+        <b-form-select v-model="limit" :options="[5, 10, 15]" class="custom-select custom-select-sm"
+                       @change="getCatalogItems" />
+      </span>
+      <b-pagination :per-page="limit" :total-rows="totalCount" v-model="offset" @input="getCatalogItems"></b-pagination>
+      <span>{{ totalCount }} books in {{ Math.ceil(totalCount / limit) }} pages</span>
+    </div>
   </div>
 </template>
 
@@ -33,12 +54,32 @@ export default Vue.extend({
   name: 'MyBills',
   data () {
     return {
-      bills: []
+      bills: [],
+      totalCount: 0,
+      limit: 10,
+      offset: 1,
+      filter: {
+        entryLocation: '',
+        exitLocation: '',
+        carRegistrationNumber: ''
+      }
     }
   },
   computed: {
     fields() {
-      return ['EntryLocation', 'ExitLocation', 'CarRegistrationNumber', 'Date', 'Cost', 'Actions']
+      return [{key: 'EntryLocation', sortable: false}, 
+        {key: 'ExitLocation', sortable: false},
+        {key: 'CarRegistrationNumber', sortable: false},
+        {key: 'Date', sortable: true},
+        {key: 'Cost', sortable: true},
+        {key: 'Actions', sortable: false}]
+    },
+    filteredBills() {
+      return this.bills.filter((bill) => 
+          bill.journey.entryLocation.name.includes(this.filter.entryLocation) &&
+          bill.journey.exitLocation.name.includes(this.filter.exitLocation) &&
+          bill.journey.regNumber.includes(this.filter.carRegistrationNumber)
+      )
     }
   },
   methods: {
