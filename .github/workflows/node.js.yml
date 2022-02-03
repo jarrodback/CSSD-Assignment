@@ -4,56 +4,129 @@
 name: Build-Test-Deploy Pipeline
 
 on:
-  push
+  workflow_dispatch:
+  pull_request:
+  push:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
         node-version: [16.x]
-        mongodb-version: [4.2]
 
     steps:
     - uses: actions/checkout@v2
-    - name: Start MongoDB v${{ matrix.mongodb-version }}
-      uses: supercharge/mongodb-github-action@1.2.0
-      with:
-        mongodb-version: ${{ matrix.mongodb-version }}
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
         cache-dependency-path: server/package-lock.json
+
     - name: Server - run build
       run: |
         cd server
         npm ci
         npm run build --if-present
+
     - name: UI - run build
       run: |
         cd ui
         npm ci
         npm run build --if-present
-    - name: Server - run tests    
-      run: |
-        cd server
-        npm test
+
+    - uses: actions/upload-artifact@master
+      with:
+        name: build-ui
+        path: |
+          ui
+          !ui/node_modules
+
+    - uses: actions/upload-artifact@master
+      with:
+        name: build-server
+        path: |
+          server
+          !server/node_modules
+
+  test-ui:
+    runs-on: ubuntu-latest
+    needs: [build]
+
+    steps:
+    - uses: actions/download-artifact@master
+      with:
+        name: build-ui
+
     - name: UI - run tests    
       run: |
-        cd ui
+        npm i
         npm test
-    - name: Code Coverage
-      if: github.event_name == 'pull_request'
-      uses: romeovs/lcov-reporter-action@v0.2.16
+
+  test-server:
+    runs-on: ubuntu-latest
+    needs: [build]
+
+    strategy:
+      matrix:
+        mongodb-version: [4.2]
+
+    steps:
+    - name: Start MongoDB v${{ matrix.mongodb-version }}
+      uses: supercharge/mongodb-github-action@1.2.0
       with:
-        lcov-file: ./server/coverage/lcov.info
+        mongodb-version: ${{ matrix.mongodb-version }}
+
+    - uses: actions/download-artifact@master
+      with:
+        name: build-server
+
+    - name: Server - run tests   
+      run: |
+        npm i
+        npm test
+
+    - uses: actions/upload-artifact@master
+      with:
+        name: coverage-server
+        path: |
+          coverage
+
+  coverage:
+    runs-on: ubuntu-latest
+    needs: [test-server,test-ui]
+
+    if: >- 
+      github.event_name == 'pull_request'
+    steps:
+    - uses: actions/download-artifact@master
+      with:
+        name: coverage-server
+
+    - name: Code Coverage
+      uses: romeovs/lcov-reporter-action@v0.3.1
+      with:
+        lcov-file: lcov.info
         github-token: ${{ secrets.GITHUB_TOKEN }}
-    - name: Deploy
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [test-server,test-ui]
+
+    if: >- 
+      github.event_name == 'pull_request'
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: actions/download-artifact@master
+      with:
+        name: build-ui
+
+    - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4.2.3
       with:
         branch: gh-pages
-        folder: ./ui/dist/
+        folder: dist
