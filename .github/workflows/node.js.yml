@@ -47,6 +47,9 @@ jobs:
         path: |
           ui
           !ui/node_modules
+
+    - uses: actions/upload-artifact@master
+      with:
         name: build-server
         path: |
           server
