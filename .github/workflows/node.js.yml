@@ -47,7 +47,7 @@ jobs:
         cd ui
         npm test
     - name: Code Coverage
-      uses: romeovs/lcov-reporter-action@v0.2.16
+      uses: romeovs/lcov-reporter-action@v0.3.1
       with:
         lcov-file: ./server/coverage/lcov.info
         github-token: ${{ secrets.GITHUB_TOKEN }}
