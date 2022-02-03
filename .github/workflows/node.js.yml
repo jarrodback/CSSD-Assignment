@@ -4,9 +4,11 @@
 name: Build-Test-Deploy Pipeline
 
 on:
+  workflow_dispatch:
+
   push:
-  pull_request:
-    branches: [ develop ]
+    paths-ignore:
+    - 'README.md'
 
 jobs:
   build:
@@ -124,6 +126,8 @@ jobs:
         name: build-ui
 
     - name: Deploy
+      if: >- 
+        github.event_name == 'pull_request'
       uses: JamesIves/github-pages-deploy-action@v4.2.3
       with:
         branch: gh-pages
