@@ -115,7 +115,9 @@ jobs:
       if: always()
       with:
         name: cypress-videos
-        path: ./tests/e2e/videos/
+        path: |
+          ui
+          !ui/node_modules
 
   test-server:
     runs-on: ubuntu-latest
