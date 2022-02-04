@@ -109,15 +109,13 @@ jobs:
       if: failure()
       with:
         name: cypress-screenshots
-        path: ./tests/e2e/screenshots
+        path: ui/tests/e2e/screenshots/
 
     - uses: actions/upload-artifact@v2
       if: always()
       with:
         name: cypress-videos
-        path: |
-          ui
-          !ui/node_modules
+        path: ui/tests/e2e/videos/
 
   test-server:
     runs-on: ubuntu-latest
