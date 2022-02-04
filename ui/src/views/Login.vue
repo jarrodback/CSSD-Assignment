@@ -1,58 +1,32 @@
   <template>
-    <div class="center login-div">
-        <b-form
-            ref="loginRequestForm"
-            @submit="onSubmit"
-        >
-            <b-form-group
-                label="Email"
-                label-for="email-input"
-                invalid-feedback="Email is required"
-            >
-                <b-form-input
-                    type="email"
-                    id="email-input"
-                    v-model="loginData.email"
-                    placeholder="Enter email"
-                    required
-                ></b-form-input>
-            </b-form-group>
-
-            <b-form-group
-                label="Password"
-                label-for="password-input"
-                invalid-feedback="Password is required"
-            >
-                <b-form-input
-                    type="password"
-                    id="password-input"
-                    v-model="loginData.password"
-                    placeholder="Enter password"
-                    required
-                ></b-form-input>
-                <div class="submit-space">
-                    <b-button
-                        type="submit"
-                        variant="primary"
-                    >Login</b-button>
-                </div>
-            </b-form-group>
-
-        </b-form>
+    <div class="vh-100 d-flex align-items-center justify-content-center">
+      <b-card class="w-50" title="Sign in to NTG Self Service Portal">
+        <template #default>
+          <b-input-group class="flex-column p-3">
+            <ValidationObserver ref="observer">
+              <Input id="email" v-model="loginData.email" placeholder="Email..." rules="required|email" type="email" label="Email" />
+              <Input id="password" v-model="loginData.password" placeholder="Password..." rules="required" type="password" label="Password" class="mt-3"/>
+            </ValidationObserver>
+            <span class="mt-4">New here? <b-link class="link">Sign up!</b-link></span> 
+            <b-button variant="primary" class="mt-3" @click="login">Sign in</b-button>
+          </b-input-group>
+        </template>
+      </b-card>
     </div>
 </template>
 
 <script>
 import api from "../api/api";
 import store from "../store/store";
+import { ValidationObserver } from 'vee-validate'
+import Input from "@/components/input";
 
 export default {
     name: "login-form",
-
+    components: {ValidationObserver, Input }, //Import validation observer to catch validation errors
     data() {
         return {
-            // The mapped form data.
-            loginData: {},
+            loginData: {}, // The mapped form data.
         };
     },
 
@@ -60,8 +34,11 @@ export default {
         /**
          * On submitting of the form, send login request to API.
          */
-        onSubmit(event) {
-            event.preventDefault();
+        async login() {
+            const valid = await this.$refs.observer.validate()
+            if(!valid){
+              return
+            }
             api.login(this.loginData)
                 .then((data) => {
                     // If successful, store returned user details and change route.
@@ -75,8 +52,11 @@ export default {
                     this.$router.push("my-bills");
                 })
                 .catch((error) => {
-                    // TODO: do something pretty to tell the user <3
-                    console.log(error);
+                  this.$bvToast.toast(error.message, {
+                    title: 'Invalid email or password',
+                    variant: 'danger',
+                    solid: true
+                  })
                 });
         },
     },

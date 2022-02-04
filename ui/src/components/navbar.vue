@@ -2,6 +2,7 @@
     <b-navbar
         class="shadow"
         id="navbar"
+        v-if="loggedIn"
     >
         <div class="d-flex align-items-center">
             <img
@@ -94,7 +95,8 @@
                         src="@/assets/profile.png"
                         alt="profile icon"
                         height="50"
-                    />
+                        class="mr-2"
+                    /><span id="username">{{ username }}</span>
                 </template>
                 <b-dropdown-item v-on:click="signOut">Sign Out</b-dropdown-item>
             </b-nav-item-dropdown>
@@ -189,6 +191,18 @@ export default Vue.extend({
         selectedCurrency() {
             return this.currency;
         },
+        /**
+         * Check if the user is logged in.
+         */
+        loggedIn() {
+          return store.getters.loggedIn
+        },
+        /**
+         *  Gets the username 
+         */
+        username() {
+          return store.getters.user.username
+        }
     },
     /**
      * Sets the selected currency on create.
