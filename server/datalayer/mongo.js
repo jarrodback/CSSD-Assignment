@@ -18,6 +18,15 @@ class DataLayer {
               })
           })
     }
+
+    /**
+     * Find all records in the database.
+     */
+    async findByPropertyAndPopulate(id, populateFilter) {
+        return this.model.findById(id)
+          .orFail(new Error("Record can't be found in the database."))
+          .populate(JSON.parse(JSON.stringify(populateFilter)))
+    }
     
     /**
      * Find a record by property in the database.

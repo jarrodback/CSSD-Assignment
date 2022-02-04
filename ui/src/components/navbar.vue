@@ -4,13 +4,13 @@
         id="navbar"
         v-if="loggedIn"
     >
-        <div class="d-flex align-items-center">
+        <a class="d-flex align-items-center text-decoration-none" href="/my-bills">
             <img
                 src="@/assets/creditcard.png"
                 alt="Self Service Portal Logo"
             />
             <h4 class="ml-3 mb-0">Self Service Portal</h4>
-        </div>
+        </a>
         <b-navbar-nav class="ml-auto">
       <b-nav-item right class="mr-3" id="support" :to="{ name: 'Help' }">
                 <img
