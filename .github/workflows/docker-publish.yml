@@ -36,12 +36,18 @@ jobs:
           jarrodback/highway-tracker
           ghcr.io/${{ github.repository }}
     
-    - name: Build and push Docker images
+    - name: Build and push Docker images - Server
       uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
       with:
-        context: |
-          ./server/
-          ./ui/
+        context: ./server/
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+
+    - name: Build and push Docker images - Ui
+      uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+      with:
+        context: ./ui/
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
