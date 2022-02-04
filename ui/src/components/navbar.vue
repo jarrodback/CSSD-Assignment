@@ -12,11 +12,7 @@
             <h4 class="ml-3 mb-0">Self Service Portal</h4>
         </div>
         <b-navbar-nav class="ml-auto">
-            <b-nav-item
-                right
-                class="mr-3"
-                id="support"
-            >
+      <b-nav-item right class="mr-3" id="support" :to="{ name: 'Help' }">
                 <img
                     src="@/assets/support.png"
                     alt="support icon"

@@ -5,13 +5,15 @@ import PayBill from "@/views/PayBill";
 import Login from "@/views/Login";
 import Register from "@/views/Register";
 import { isAuthenticated, isLoggedOut } from "../auth";
+import Help from "@/views/Help";
+
 /**
  * Import Vue Router.
  */
 Vue.use(VueRouter);
 
 /**
- * Declare routes for the my bills and pay bills routes.
+ * Declare routes for the my bills, pay bills, help routes.
  */
 const routes = [
     {
@@ -51,6 +53,14 @@ const routes = [
         },
         beforeEnter: isLoggedOut,
     },
+    {
+       path: '/help',
+       name: 'Help',
+       component: Help,
+       meta: {
+       title: 'Frequently Asked Questions (FAQ)'
+    }
+  }
 ];
 
 /**
