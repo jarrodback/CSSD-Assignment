@@ -47,20 +47,20 @@ export default Vue.extend({
     return {
       bill: {
         journey: {
-          journeyDateTime: '',
+          journeyDateTime: '', //Completed Journey Date and Time.
           entryLocation: {
-            name: ''
+            name: '' //Name of the entry location.
           },
           exitLocation: {
-            name: ''
+            name: '' //Name of the exit location.
           }
         }
-      }, //Stores the bill
+      }, //Stores the bill.
       paymentDetails: {
-        cardholderName: '',
-        cardNumber: '',
-        cvv: '',
-        expiryDate: ''
+        cardholderName: '', //Cards Cardholder name.
+        cardNumber: '', //Cards card number.
+        cvv: '', //Cards CVV number.
+        expiryDate: '' //Cards expiry date.
       }
     }
   },
@@ -69,8 +69,8 @@ export default Vue.extend({
     formatCost, //Import the format cost helper function to be used in the template.
     async payBillViaPayPal() {
       api.payBill(this.bill._id).catch((error) => {
-        this.$bvToast.toast(error.message, {
-          title: 'Invalid email or password',
+        this.$bvToast.toast(error.message, { //Create red toast to show error.
+          title: 'Payment Failed',
           variant: 'danger',
           solid: true
         })
@@ -79,20 +79,20 @@ export default Vue.extend({
       await this.$router.push({name: 'MyBills'})
     },
     async payBill() {
-      const valid = await this.$refs.observer.validate()
+      const valid = await this.$refs.observer.validate() //Check if the payment details are valid.
       if (!valid) {
         return
       }
       
       api.payBill(this.bill._id).catch((error) => {
-        this.$bvToast.toast(error.message, {
-          title: 'Invalid email or password',
+        this.$bvToast.toast(error.message, { //Create red toast to show error.
+          title: 'Payment Failed',
           variant: 'danger',
           solid: true
         })
       });
       
-      await this.$router.push({name: 'MyBills'})
+      await this.$router.push({name: 'MyBills'}) //Return user to the my bills page.
     },
     onlyNumber($event) {
       let keyCode = ($event.keyCode ? $event.keyCode : $event.which); //Get inputted keycode
