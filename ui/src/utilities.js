@@ -48,6 +48,5 @@ export function formatCost(cost) {
  * @returns {Boolean}
  */
 export function isUserAuthenticated() {
-    console.log("check", store.getters.loggedIn);
     return store.getters.loggedIn;
 }

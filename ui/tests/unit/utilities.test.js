@@ -1,4 +1,4 @@
-﻿import { formatDate, formatCost } from "@/utilities";
+﻿import { formatDate, formatCost, isUserAuthenticated } from "@/utilities";
 import Store from "@/store/store";
 
 describe("Format Date", () => {
@@ -83,7 +83,7 @@ describe("Can check if user is authenticated", () => {
         Store.dispatch("updateLoggedIn", loggedIn);
 
         //Act
-        const isLoggedIn = Store.getters.loggedIn;
+        const isLoggedIn = isUserAuthenticated();
 
         //Assert
         expect(isLoggedIn).toBe(false);
@@ -95,7 +95,7 @@ describe("Can check if user is authenticated", () => {
         Store.dispatch("updateLoggedIn", loggedIn);
 
         //Act
-        const isLoggedIn = Store.getters.loggedIn;
+        const isLoggedIn = isUserAuthenticated();
 
         //Assert
         expect(isLoggedIn).toBe(true);
