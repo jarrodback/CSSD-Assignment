@@ -95,7 +95,7 @@ jobs:
         npm i --prefix ui
 
     - name: Cypress run
-      uses: cypress-io/github-action@v3.8.3
+      uses: cypress-io/github-action@v3
       with:
         browser: chrome
         working-directory: ui
