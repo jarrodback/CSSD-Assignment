@@ -100,7 +100,7 @@ jobs:
         install: false
         working-directory: ui/tests/e2e/
         start: npm start --prefix ../../../server
-        wait-on: 'http://localhost:3000'
+        wait-on: 'https://localhost:3000'
 
     - uses: actions/upload-artifact@v2
       if: failure()
