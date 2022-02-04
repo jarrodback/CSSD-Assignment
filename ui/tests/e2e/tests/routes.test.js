@@ -15,4 +15,12 @@
   //Assert
   cy.contains('h1', 'My Bills')
  })
+
+ it('loads the help page', () => {
+  //Act
+  cy.visit('/help')
+
+  //Assert
+  cy.contains('h1', 'Frequently Asked Questions (FAQ)')
+ })
 })

@@ -12,6 +12,10 @@ $White: white;
     color: $White !important;
 }
 
+.card-title {
+    color: black;
+}
+
 h4 {
     color: $White;
 }
@@ -22,6 +26,12 @@ h4 {
 
 .white-text {
     color: $White;
+}
+
+.email {
+    color: dodgerblue;
+    text-decoration: dodgerblue underline;
+    cursor: pointer;
 }
 
 .page-item.active .page-link {

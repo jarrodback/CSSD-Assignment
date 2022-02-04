@@ -48,7 +48,7 @@ describe("Testing /auth paths", () => {
                 res.body.should.have.property("message");
                 res.body.message.should.be.eql("Successfully logged in.");
                 res.should.have.cookie("highwayTracker-token");
-     
+
                 done();
             });
     });
