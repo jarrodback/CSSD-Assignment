@@ -1,11 +1,11 @@
 ﻿<template>
   <b-navbar class="shadow" id="navbar">
-    <div class="d-flex align-items-center">
-      <img src="@/assets/creditcard.png" alt="Self Service Portal Logo"/>
-      <h4 class="ml-3 mb-0">Self Service Portal</h4>
-    </div>
+    <a href="/my-bills" class="d-flex align-items-center text-decoration-none">
+      <img src="@/assets/creditcard.png" alt="Self Service Portal Logo" />
+      <h4 class="ml-3 mb-0 text-decoration-none">Self Service Portal</h4>
+    </a>
     <b-navbar-nav class="ml-auto">
-      <b-nav-item right class="mr-3" id="support">
+      <b-nav-item right class="mr-3" id="support" :to="{ name: 'Help' }">
         <img src="@/assets/support.png" alt="support icon" height="50" class="mr-2" />Help
       </b-nav-item>
       <b-nav-item-dropdown right class="mr-3" id="languages">

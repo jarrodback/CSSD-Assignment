@@ -2,13 +2,14 @@
 import VueRouter from "vue-router";
 import MyBills from "@/views/MyBills";
 import PayBill from "@/views/PayBill";
+import Help from "@/views/Help";
 /**
  * Import Vue Router.
  */
 Vue.use(VueRouter)
 
 /**
- * Declare routes for the my bills and pay bills routes.
+ * Declare routes for the my bills, pay bills, help routes.
  */
 const routes = [
  {
@@ -26,7 +27,18 @@ const routes = [
  {
   path: '/my-bills/:id',
   name: 'PayBill',
-  component: PayBill
+  component: PayBill,
+  meta: {
+   title: 'Pay Bill'
+  }
+ },
+ {
+  path: '/help',
+  name: 'Help',
+  component: Help,
+  meta: {
+   title: 'Frequently Asked Questions (FAQ)'
+  }
  }
 ]
 

@@ -24,6 +24,12 @@ h4 {
     color: $White;
 }
 
+.email {
+    color: dodgerblue;
+    text-decoration: dodgerblue underline;
+    cursor: pointer;
+}
+
 .page-item.active .page-link {
     background-color: $Navy-Blue !important;
     border-color: $Navy-Blue !important;
