@@ -103,7 +103,7 @@ jobs:
         start: |
           npm start --prefix ../../../server
           npm run serve --prefix ../../
-        wait-on: 'https://localhost:8080'
+        wait-on: 'http://localhost:8080'
 
     - uses: actions/upload-artifact@v2
       if: failure()
