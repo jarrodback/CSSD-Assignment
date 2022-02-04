@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import MyBills from "@/views/MyBills";
 import PayBill from "@/views/PayBill";
 import Login from "@/views/Login";
+import Register from "@/views/Register";
 import { isAuthenticated, isLoggedOut } from "../auth";
 /**
  * Import Vue Router.
@@ -38,6 +39,15 @@ const routes = [
         component: Login,
         meta: {
             title: "Login",
+        },
+        beforeEnter: isLoggedOut,
+    },
+    {
+        path: "/register",
+        name: "Register",
+        component: Register,
+        meta: {
+            title: "Register",
         },
         beforeEnter: isLoggedOut,
     },

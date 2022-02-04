@@ -57,6 +57,19 @@ const api = class Api {
             });
     }
 
+    async register(payload) {
+        return axios
+            .post(`${this.authUrl}/register`, payload, {
+                withCredentials: true,
+            })
+            .then((response) => {
+                return response.data;
+            })
+            .catch((error) => {
+                throw error;
+            });
+    }
+
     async logout() {
         return axios.post(`${this.authUrl}/logout`, {
             withCredentials: true,

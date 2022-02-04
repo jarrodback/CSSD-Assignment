@@ -13,7 +13,6 @@
         </div>
         <b-navbar-nav class="ml-auto">
             <b-nav-item
-                v-if="isUserAuthenticated"
                 right
                 class="mr-3"
                 id="support"
@@ -26,7 +25,6 @@
                 />Help
             </b-nav-item>
             <b-nav-item-dropdown
-                v-if="isUserAuthenticated"
                 right
                 class="mr-3"
                 id="languages"
@@ -47,7 +45,6 @@
                 >{{lang}}</b-dropdown-item>
             </b-nav-item-dropdown>
             <b-nav-item-dropdown
-                v-if="isUserAuthenticated"
                 right
                 class="mr-3"
                 id="currencies"
@@ -86,7 +83,6 @@
                 >EUR</b-dropdown-item>
             </b-nav-item-dropdown>
             <b-nav-item-dropdown
-                v-if="isUserAuthenticated"
                 right
                 id="profile"
             >
@@ -108,7 +104,6 @@
 import Vue from "vue";
 import store from "../store/store";
 import api from "../api/api";
-import { isUserAuthenticated } from "../utilities";
 
 export default Vue.extend({
     name: "navbar", //Sets the name of the file.
@@ -120,18 +115,12 @@ export default Vue.extend({
     },
     methods: {
         /**
-         * Check the user is authenticated
-         */
-        isUserAuthenticated,
-
-        /**
          * Updates the selected currency in the store.
          * @param selectedCurrency
          */
         updateCurrencies(selectedCurrency) {
             this.currency = selectedCurrency;
             store.dispatch("updateSelectedCurrency", selectedCurrency);
-            console.log(store.getters.loggedIn);
         },
 
         /**
@@ -195,14 +184,14 @@ export default Vue.extend({
          * Check if the user is logged in.
          */
         loggedIn() {
-          return store.getters.loggedIn
+            return store.getters.loggedIn;
         },
         /**
-         *  Gets the username 
+         *  Gets the username
          */
         username() {
-          return store.getters.user.username
-        }
+            return store.getters.user.username;
+        },
     },
     /**
      * Sets the selected currency on create.
