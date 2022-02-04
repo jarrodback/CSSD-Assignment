@@ -68,7 +68,7 @@ export default Vue.extend({
     formatDate, //Import the format date helper function to be used in the template.
     formatCost, //Import the format cost helper function to be used in the template.
     async payBillViaPayPal() {
-      api.payBill(this.bill.id).catch((error) => {
+      api.payBill(this.bill._id).catch((error) => {
         this.$bvToast.toast(error.message, {
           title: 'Invalid email or password',
           variant: 'danger',
@@ -84,7 +84,7 @@ export default Vue.extend({
         return
       }
       
-      api.payBill(this.bill.id).catch((error) => {
+      api.payBill(this.bill._id).catch((error) => {
         this.$bvToast.toast(error.message, {
           title: 'Invalid email or password',
           variant: 'danger',

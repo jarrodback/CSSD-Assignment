@@ -1,8 +1,9 @@
-﻿@import '~bootstrap/dist/css/bootstrap.css';
-@import '~bootstrap-vue/dist/bootstrap-vue.css';
-
-$Navy-Blue: #3c4253;
+﻿$Navy-Blue: #3c4253;
 $White: white;
+
+$theme-colors: (
+        "primary": $Navy-Blue
+);
 
 .navbar {
     background-color: $Navy-Blue;
@@ -38,11 +39,6 @@ h4 {
     cursor: pointer;
 }
 
-.btn-primary {
-    border-color: $Navy-Blue;
-    background-color: $Navy-Blue;
-}
-
 .page-item.active .page-link {
     background-color: $Navy-Blue !important;
     border-color: $Navy-Blue !important;
@@ -53,3 +49,6 @@ h4 {
         max-width: 75% !important;
     }
 }
+
+@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap-vue/src/index.scss';
