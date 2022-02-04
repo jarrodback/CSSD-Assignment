@@ -93,12 +93,14 @@ jobs:
       run: |
         npm i --prefix server
         npm i --prefix ui
-        cd ui
 
     - name: Cypress run
       uses: cypress-io/github-action@v2
       with:
+        install: false
+        working-directory: ui/tests/e2e/
         start: npm start --prefix ../server
+        wait-on: 'http://localhost:3000'
 
   test-server:
     runs-on: ubuntu-latest
