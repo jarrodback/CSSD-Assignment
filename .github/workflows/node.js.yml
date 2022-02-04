@@ -72,6 +72,41 @@ jobs:
         path: |
           coverage
 
+  test-ui-integration:
+    runs-on: ubuntu-latest
+    needs: [build]
+
+    strategy:
+      matrix:
+        mongodb-version: [4.2]
+
+    steps:
+    - uses: actions/download-artifact@master
+      with:
+        name: build-ui
+
+    - uses: actions/download-artifact@master
+      with:
+        name: build-server
+        path: server/
+
+    - name: UI - install server    
+      run: |
+        npm i --prefix server
+
+    - name: Checkout
+      uses: actions/checkout@v2
+   
+    - name: Start MongoDB v${{ matrix.mongodb-version }}
+      uses: supercharge/mongodb-github-action@1.2.0
+      with:
+        mongodb-version: ${{ matrix.mongodb-version }}
+
+    - name: Cypress run
+      uses: cypress-io/github-action@v2
+      with:
+        start: npm start --prefix server
+
   test-server:
     runs-on: ubuntu-latest
     needs: [build]
