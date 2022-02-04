@@ -65,8 +65,8 @@ export default {
             api.login(this.loginData)
                 .then((data) => {
                     // If successful, store returned user details and change route.
-                    store.commit("setLoggedIn", true);
-                    store.commit("setUser", {
+                    store.dispatch("updateLoggedIn", true);
+                    store.dispatch("updateUser", {
                         id: data.id,
                         username: data.username,
                         type: data.type,

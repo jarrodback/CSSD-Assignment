@@ -137,8 +137,8 @@ export default Vue.extend({
          */
         signOut() {
             api.logout().then(() => {
-                store.commit("setLoggedIn", false);
-                store.commit("setUser", {});
+                store.dispatch("updateLoggedIn", false);
+                store.dispatch("updateUser", {});
                 sessionStorage.clear();
                 this.$router.push("/login").catch(() => {});
             });

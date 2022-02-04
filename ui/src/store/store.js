@@ -36,8 +36,8 @@ export default new Vuex.Store({
          * @param state
          * @param payload
          */
-        setLoggedIn(state, payload) {
-            state.loggedIn = payload;
+        updateLoggedIn(state, loggedIn) {
+            state.loggedIn = loggedIn;
         },
 
         /**
@@ -45,8 +45,8 @@ export default new Vuex.Store({
          * @param state
          * @param payload
          */
-        setUser(state, payload) {
-            state.user = payload;
+        updateUser(state, user) {
+            state.user = user;
         },
     },
     actions: {
@@ -56,6 +56,22 @@ export default new Vuex.Store({
          */
         updateSelectedCurrency({ commit }, selectedCurrency) {
             commit("updateSelectedCurrency", selectedCurrency);
+        },
+
+        /**
+         * Calls the updateLoggedIn mutation.
+         * @param loggedIn
+         */
+        updateLoggedIn({ commit }, loggedIn) {
+            commit("updateLoggedIn", loggedIn);
+        },
+
+        /**
+         * Calls the updateUser mutation.
+         * @param loggedIn
+         */
+        updateUser({ commit }, user) {
+            commit("updateUser", user);
         },
     },
     getters: {
