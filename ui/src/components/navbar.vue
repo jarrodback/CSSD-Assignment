@@ -140,7 +140,9 @@ export default Vue.extend({
                 store.dispatch("updateLoggedIn", false);
                 store.dispatch("updateUser", {});
                 sessionStorage.clear();
-                this.$router.push("/login").catch(() => {});
+                this.$router.push("/login").catch(() => {
+                    //Intentional comment for sonar. Stop route error if already on same page.
+                });
             });
         },
     },
