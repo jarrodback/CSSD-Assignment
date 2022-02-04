@@ -2,7 +2,8 @@
   <label class="w-100 mb-0">
     {{ label }}
     <ValidationProvider :name="label" :rules="rules" v-slot="{ errors }">
-      <b-input :placeholder="placeholder" :type="type" v-bind="$attrs" v-on="$listeners" :class="errors.length > 0 ? 'border-danger' : ''"/>
+      <b-form-datepicker v-if="type === 'date'" :placeholder="placeholder" :date-format-options="{ month: '2-digit', year: '2-digit', day: undefined, weekday: undefined }" v-bind="$attrs" v-on="$listeners" :class="errors.length > 0 ? 'border-danger' : ''"/>
+      <b-input v-else :placeholder="placeholder" :type="type" v-bind="$attrs" v-on="$listeners" :class="errors.length > 0 ? 'border-danger' : ''"/>
       <span class="text-danger">{{ errors[0]}}</span>
     </ValidationProvider>
   </label>

@@ -10,7 +10,15 @@ exports.getAllBills = async (req, res) => {
    .catch((error) => {
     res.status(error.status).send({message: error.message})
    })
+}
 
+/**
+ *  Get bill by ID.
+ */
+exports.getBillById = async (req, res) => {
+ billBusiness.getBillById(req.params.id)
+   .then((data) => {return res.status(200).send(data)})
+   .catch((error) => {res.status(error.status).send({message: error.message})})
 }
 
 /**
