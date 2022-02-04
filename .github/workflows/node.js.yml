@@ -101,8 +101,8 @@ jobs:
         working-directory: ui/tests/e2e/
         browser: chrome
         config-file: ../../cypress.json
-       	spec: |
-  	  **/*.test.js
+        spec: |
+          **/*.test.js
         start: |
           npm start --prefix ../../../server
           npm run serve --prefix ../../
