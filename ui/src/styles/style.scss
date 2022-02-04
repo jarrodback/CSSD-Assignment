@@ -28,10 +28,19 @@ h4 {
     color: $White;
 }
 
+.black-text {
+    color: black;
+}
+
 .email {
     color: dodgerblue;
     text-decoration: dodgerblue underline;
     cursor: pointer;
+}
+
+.btn-primary {
+    border-color: $Navy-Blue;
+    background-color: $Navy-Blue;
 }
 
 .page-item.active .page-link {

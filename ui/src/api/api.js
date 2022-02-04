@@ -27,6 +27,19 @@ const api = class Api {
             });
     }
 
+    async getBillById(billId) {
+        return axios
+          .get(`${this.baseUrl}/bill/${billId}`, {
+              withCredentials: true,
+          })
+          .then((response) => {
+              return response.data;
+          })
+          .catch((error) => {
+              throw error;
+          });
+    }
+
     async payBill(billId) {
         return axios
             .put(

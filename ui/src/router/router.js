@@ -33,6 +33,9 @@ const routes = [
         path: "/my-bills/:id",
         name: "PayBill",
         component: PayBill,
+        meta: {
+            title: "Pay Bill",
+        },
         beforeEnter: isAuthenticated,
     },
     {

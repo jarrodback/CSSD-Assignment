@@ -29,8 +29,8 @@
       <template #cell(cost)="cell">
         {{ formatCost(cell.item.cost) }}
       </template>
-      <template #cell(actions)>
-        <b-link>Pay Bill</b-link>
+      <template #cell(actions)="cell">
+        <b-link :to="{ name: 'PayBill', params: { id: cell.item._id }}">Pay Bill</b-link>
       </template>
     </b-table>
     <div class="d-flex justify-content-between align-items-baseline">
@@ -49,6 +49,7 @@
 import Vue from 'vue'
 import api from "@/api/api";
 import { formatDate, formatCost } from "@/utilities";
+import store from "@/store/store";
 
 export default Vue.extend({
   name: 'MyBills', //Sets the name of file.
@@ -95,7 +96,7 @@ export default Vue.extend({
      * Gets a list of bills from the api and sets the bills and totalcount variables.
      */
     async getBills() {
-      const data = await api.getAllBills({limit: this.limit, offset: parseInt(this.offset - 1)}) //TODO: Filter by DriverId
+      const data = await api.getAllBills({driver: store.getters.user.id, paid: false, limit: this.limit, offset: parseInt(this.offset - 1)})
       this.bills = data.bills
       this.totalCount = data.count
     }
