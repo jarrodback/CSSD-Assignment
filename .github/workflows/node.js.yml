@@ -99,8 +99,9 @@ jobs:
       with:
         install: false
         working-directory: ui/tests/e2e/
+        browser: chrome
         start: npm start --prefix ../../../server
-        wait-on: 'http://0.0.0.0:8080'
+        wait-on: 'https://localhost:8080'
 
     - uses: actions/upload-artifact@v2
       if: failure()
