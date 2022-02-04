@@ -1,0 +1,193 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Build-Test-Deploy Pipeline
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        cache-dependency-path: server/package-lock.json
+
+    - name: Server - run build
+      run: |
+        cd server
+        npm ci
+        npm run build --if-present
+
+    - name: UI - run build
+      run: |
+        cd ui
+        npm ci
+        npm run build --if-present
+
+    - uses: actions/upload-artifact@master
+      with:
+        name: build-ui
+        path: |
+          ui
+          !ui/node_modules
+
+    - uses: actions/upload-artifact@master
+      with:
+        name: build-server
+        path: |
+          server
+          !server/node_modules
+
+  test-ui-unit:
+    runs-on: ubuntu-latest
+    needs: [build]
+
+    steps:
+    - uses: actions/download-artifact@master
+      with:
+        name: build-ui
+
+    - name: UI - run unit tests    
+      run: |
+        npm i
+        npm run test:unit
+
+    - uses: actions/upload-artifact@master
+      with:
+        name: coverage-ui
+        path: |
+          coverage
+
+  test-ui-integration:
+    runs-on: ubuntu-latest
+    needs: [build]
+
+    strategy:
+      matrix:
+        mongodb-version: [4.2]
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+   
+    - name: Start MongoDB v${{ matrix.mongodb-version }}
+      uses: supercharge/mongodb-github-action@1.2.0
+      with:
+        mongodb-version: ${{ matrix.mongodb-version }}
+
+    - name: UI - install packages
+      run: |
+        npm i --prefix server
+        npm i --prefix ui
+
+    - name: Cypress run
+      uses: cypress-io/github-action@v3
+      with:
+        browser: chrome
+        working-directory: ui
+        config-file: cypress.json
+        start: |
+          npm start --prefix ../server
+          npm run serve --prefix
+        wait-on: 'http://localhost:8080'
+
+    - uses: actions/upload-artifact@v2
+      if: failure()
+      with:
+        name: cypress-screenshots
+        path: ui/tests/e2e/screenshots/
+
+    - uses: actions/upload-artifact@v2
+      if: always()
+      with:
+        name: cypress-videos
+        path: ui/tests/e2e/videos/
+
+  test-server:
+    runs-on: ubuntu-latest
+    needs: [build]
+
+    strategy:
+      matrix:
+        mongodb-version: [4.2]
+
+    steps:
+    - name: Start MongoDB v${{ matrix.mongodb-version }}
+      uses: supercharge/mongodb-github-action@1.2.0
+      with:
+        mongodb-version: ${{ matrix.mongodb-version }}
+
+    - uses: actions/download-artifact@master
+      with:
+        name: build-server
+
+    - name: Server - run unit and integration tests   
+      run: |
+        npm i
+        npm test
+
+    - uses: actions/upload-artifact@master
+      with:
+        name: coverage-server
+        path: |
+          coverage
+
+  coverage:
+    runs-on: ubuntu-latest
+    needs: [test-server,test-ui-unit]
+
+    if: >- 
+      github.event_name == 'pull_request'
+    steps:
+    - uses: actions/download-artifact@master
+      with:
+        name: coverage-server
+
+    - name: Code Coverage Server
+      uses: romeovs/lcov-reporter-action@v0.3.1
+      with:
+        lcov-file: lcov.info
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+
+    - uses: actions/download-artifact@master
+      with:
+        name: coverage-ui
+
+    - name: Code Coverage UI
+      uses: romeovs/lcov-reporter-action@v0.3.1
+      with:
+        lcov-file: lcov.info
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [test-server,test-ui-unit,test-ui-integration]
+
+    if: >- 
+      github.event_name == 'pull_request'
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: actions/download-artifact@master
+      with:
+        name: build-ui
+
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@v4.2.3
+      with:
+        branch: gh-pages
+        folder: dist

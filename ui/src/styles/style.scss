@@ -1,0 +1,54 @@
+﻿$Navy-Blue: #3c4253;
+$White: white;
+
+$theme-colors: (
+        "primary": $Navy-Blue
+);
+
+.navbar {
+    background-color: $Navy-Blue;
+}
+
+.nav-link {
+    color: $White !important;
+}
+
+.card-title {
+    color: black;
+}
+
+h4 {
+    color: $White;
+}
+
+.navy-blue-text {
+    color: $Navy-Blue;
+}
+
+.white-text {
+    color: $White;
+}
+
+.black-text {
+    color: black;
+}
+
+.email {
+    color: dodgerblue;
+    text-decoration: dodgerblue underline;
+    cursor: pointer;
+}
+
+.page-item.active .page-link {
+    background-color: $Navy-Blue !important;
+    border-color: $Navy-Blue !important;
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 75% !important;
+    }
+}
+
+@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap-vue/src/index.scss';
