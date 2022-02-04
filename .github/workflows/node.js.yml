@@ -98,12 +98,12 @@ jobs:
       uses: cypress-io/github-action@v2
       with:
         install: false
-        working-directory: ui/tests/e2e/
         browser: chrome
         config-file: ../../cypress.json
         start: |
-          npm start --prefix ../../../server
-          npm run serve --prefix ../../
+          npm start --prefix server
+          npm run serve --prefix ui
+          cd ui/
         wait-on: 'http://localhost:8080'
 
     - uses: actions/upload-artifact@v2
