@@ -5,7 +5,7 @@ const cors = require("cors");
 const cookieSession = require("cookie-session");
 const cookieParser = require("cookie-parser");
 const swaggerUi = require('swagger-ui-express'),
-  swaggerDocument = require('../swagger.json')
+  swaggerDocument = require('./swagger.json')
 
 require("./database");
 require("dotenv").config();

@@ -47,7 +47,7 @@ module.exports = class UserBusiness {
                     id: user._id,
                 };
             })
-            .catch(() => {throw httpError(400, "Your email or password is incorrect.");
+            .catch(() => {throw httpError(401, "Your email or password is incorrect.");
             });
     }
 
@@ -84,7 +84,7 @@ module.exports = class UserBusiness {
                 throw httpError(400, "Username is already in use.");
             if (error.message.includes("email"))
                 throw httpError(400, "Email is already in use.");
-            throw httpError(404, error.message);
+            throw httpError(500, error.message);
         });
     }
 
