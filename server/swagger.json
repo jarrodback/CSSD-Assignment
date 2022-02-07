@@ -1,0 +1,378 @@
+﻿{
+  "swagger": "2.0",
+  "security": [{
+    "cookie": []
+  }],
+  "securityDefinitions": {
+    "cookie": {
+      "name": "access_token",
+      "in": "header",
+      "type": "apiKey",
+      "description": "JWT Authorisation Token"
+    }
+  },
+  "info": {
+    "title": "Nordic Transport Group Highway Tracker",
+    "version": "1.0.0",
+    "description": "API for Nordic Transport Groups Highway Tracker."
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Authentication",
+      "description": "Authenticate with the API."
+    },
+    {
+      "name": "Bill",
+      "description": "Manage bills."
+    }
+  ],
+  "paths": {
+    "/bill": {
+      "get": {
+        "tags": ["Bill"],
+        "summary": "Returns a list of all bills.",
+        "parameters": [
+          {
+            "name": "driverId",
+            "in": "query",
+            "type": "string",
+            "description": "Filter bills by the driver associated with them."
+          },
+          {
+            "name": "paid",
+            "in": "query",
+            "type": "boolean",
+            "description": "Filter bills based on if they have been paid."
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "number",
+            "default": 10,
+            "description": "Filter the amount of bills to be returned on a page."
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "type": "number",
+            "default": 0,
+            "description": "Filter the amount of pages needed to be skipped."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "$ref": "#/definitions/bill"
+              }
+            }
+          },
+          "401": {
+            "description": "UNAUTHORISED",
+            "schema": {
+              "type": "string",
+              "example": ["Unauthorized: No token provided.", "Unauthorized: Invalid token."]
+            }
+          },
+          "403": {
+            "description": "FORBIDDEN",
+            "schema": {
+              "type": "string",
+              "example": "Unauthorized: You not do have permission to view this page."
+            }
+          }
+        }
+      }
+    },
+    "/bill/{id}": {
+      "parameters": [
+        {
+          "name": "billId",
+          "in": "path",
+          "type": "string",
+          "description": "The ID of the bill which is to be retrieved.",
+          "required": true
+        }
+      ],
+      "get": {
+        "tags": ["Bill"],
+        "summary": "Return a bill by its ID.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definition/bill"
+            }
+          },
+          "401": {
+            "description": "UNAUTHORISED",
+            "schema": {
+              "type": "string",
+              "example": [
+                "Unauthorized: No token provided.",
+                "Unauthorized: Invalid token."
+              ]
+            }
+          },
+          "403": {
+            "description": "FORBIDDEN",
+            "schema": {
+              "type": "string",
+              "example": "Unauthorized: You not do have permission to view this page."
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Bill"],
+        "summary": "Update a bills status to paid.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/bill"
+            }
+          },
+          "400": {
+            "description": "BAD REQUEST", 
+            "schema": {
+              "type": "string",
+              "example": "ID is not valid."
+            }
+          },
+          "401": {
+            "description": "UNAUTHORISED",
+            "schema": {
+              "type": "string",
+              "example": [
+                "Unauthorized: No token provided.",
+                "Unauthorized: Invalid token."
+              ]
+            }
+          },
+          "403": {
+            "description": "FORBIDDEN",
+            "schema": {
+              "type": "string",
+              "example": "Unauthorized: You not do have permission to view this page."
+            }
+          },
+          "404": {
+            "description": "NOT FOUND",
+            "schema": {
+              "type": "string",
+              "example": "Bill can't be found in the database."
+            }
+          }
+        }
+      }
+    },
+    "/login": {
+      "parameters": [
+        {
+          "name": "email",
+          "in": "formData",
+          "type": "string",
+          "description": "The email of the users account.",
+          "required": true
+        },
+        {
+          "name": "password",
+          "in": "formData",
+          "type": "string",
+          "description": "The password of the users account.",
+          "required": true
+        }
+      ],
+      "post": {
+        "tags": ["Authentication"],
+        "description": "Authenticate the user.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Successfully logged in."
+                },
+                "username": {
+                  "type": "string"
+                },
+                "role": {
+                  "type": "string",
+                  "enum": ["Driver", "Toll Operator"]
+                },
+                "id": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UNAUTHORISED",
+            "schema": {
+              "type": "string",
+              "example": "Your email or password is incorrect."
+            }
+          }
+        }
+      }
+    },
+    "/logout": {
+      "post": {
+        "tags": ["Authentication"],
+        "description": "Log the user out and remove the authentication token.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string",
+              "example": "User was successfully logged out."
+            }
+          }
+        }
+      }
+    },
+    "/register": {
+      "post": {
+        "tags": ["Authentication"],
+        "description": "Create a new account for the system.",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "formData",
+            "type": "string",
+            "description": "The email to be used for the users account.",
+            "required": true
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "type": "string",
+            "description": "The password to be used for the users account.",
+            "required": true
+          },
+          {
+            "name": "username",
+            "in": "formData",
+            "type": "string",
+            "description": "The username to be used for the users account.",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "CREATED",
+            "schema": {
+              "type": "string",
+              "example": "User was successfully created."
+            }
+          },
+          "400": {
+            "description": "BAD REQUEST",
+            "schema": {
+              "type": "string",
+              "example": ["Username is already in use.", "Email is already in use.", "User data is invalid."]
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "bill": {
+      "required": ["journey", "driver", "cost"], 
+      "properties": {
+        "journey": {
+          "type": "object",
+          "$ref": "#/definitions/journey",
+          "uniqueItems": true
+        },
+        "driver": {
+          "type": "object",
+          "$ref": "#/definitions/user"
+        },
+        "cost": {
+          "type": "number"
+        },
+        "paid": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "journey": {
+      "required": ["regNumber", "entryLocation", "exitLocation"],
+      "properties": {
+        "regNumber": {
+          "type": "string"
+        },
+        "entryLocation": {
+          "type": "object",
+          "$ref": "#/definitions/location"
+        },
+        "exitLocation": {
+          "type": "object",
+          "$ref": "#/definitions/location"
+        },
+        "journeyDateTime": {
+          "type": "string"
+        }
+      }
+    },
+    "user": {
+      "required": ["username", "email", "password", "type"],
+      "properties": {
+        "username": {
+          "type": "string",
+          "minLength": 5,
+          "uniqueItems": true
+        },
+        "email": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "password": {
+          "type": "string",
+          "minLength": 5
+        },
+        "type": {
+          "type": "string",
+          "enum": ["Driver", "Toll Operator"]
+        }
+      }
+    },
+    "location": {
+      "required": ["name", "coordinates"],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "coordinates": {
+          "type": "object",
+          "$ref": "#/definitions/coordinates"
+        }
+      }
+    },
+    "coordinates": {
+      "required": ["longitude", "latitude"],
+      "properties": {
+        "longitude": {
+          "type": "number"
+        },
+        "latitude": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}
