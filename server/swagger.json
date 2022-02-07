@@ -1,0 +1,34 @@
+﻿{
+  "swagger": "2.0",
+  "security": [{
+    "cookie": []
+  }],
+  "securityDefinitions": {
+    "cookie": {
+      "name": "access_token",
+      "in": "header",
+      "type": "apiKey",
+      "description": "JWT Authorisation Token"
+    }
+  },
+  "info": {
+    "title": "Nordic Transport Group Highway Tracker",
+    "version": "1.0.0",
+    "description": "API for Nordic Transport Groups Highway Tracker."
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Authentication",
+      "description": "Authenticate with the API."
+    },
+    {
+      "name": "Bill",
+      "description": "Manage bills."
+    }
+  ],
+  "paths": {
+    
+  }
+}
