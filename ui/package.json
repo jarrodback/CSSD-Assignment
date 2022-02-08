@@ -16,6 +16,7 @@
     "bootstrap": "^4.6.1",
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.6.5",
+    "cypress": "^9.4.1",
     "dayjs": "^1.10.7",
     "money": "^0.2.0",
     "vee-validate": "^3.4.14",

@@ -1,4 +1,5 @@
-﻿let chai = require("chai");
+﻿let jwt = require("jsonwebtoken");
+let chai = require("chai");
 let chaiHttp = require("chai-http");
 let server = require("../../app");
 let should = chai.should();
@@ -6,7 +7,9 @@ chai.use(chaiHttp);
 
 let authCookie;
 let authCookieSig;
+
 before(function (done) {
+
     chai.request(server)
         .post("/auth/login")
         .send({
@@ -365,6 +368,69 @@ describe("Testing /bill paths", () => {
                 res.should.have.status(404);
                 res.body.message.should.be.eql(
                     "Bill can't be found in the database."
+                );
+
+                done();
+            });
+    });
+
+    it("Should throw error when user gets a bill by id, but does not have authorisation", (done) => {
+        // Arrange
+        const billId = '123456789105'
+        const url = `/bill/${billId}`;
+
+        // Act
+        chai.request(server)
+            .get(url)
+            .set("Cookie", "")
+            .end((err, res) => {
+                // Assert
+                res.should.have.status(401);
+                res.body.message.should.be.eql(
+                    "Unauthorized: No token provided."
+                );
+
+                done();
+            });
+    });
+
+    it("Should throw error when user gets all bills but does not have authorisation", (done) => {
+        // Arrange
+        const url = `/bill/`;
+
+        // Act
+        chai.request(server)
+            .get(url)
+            .set("Cookie", "")
+            .end((err, res) => {
+                // Assert
+                res.should.have.status(401);
+                res.body.message.should.be.eql(
+                    "Unauthorized: No token provided."
+                );
+
+                done();
+            });
+    });
+
+    it("Should throw error when user pays for a bill but does not have authorisation", (done) => {
+        // Arrange
+        const billId = '123456789105';
+        const requestBody = {
+            paid: true,
+        };
+        const url = `/bill/${billId}`;
+
+        // Act
+        chai.request(server)
+            .put(url)
+            .set("Cookie", "")
+            .send(requestBody)
+            .end((err, res) => {
+                // Assert
+                res.should.have.status(401);
+                res.body.message.should.be.eql(
+                    "Unauthorized: No token provided."
                 );
 
                 done();

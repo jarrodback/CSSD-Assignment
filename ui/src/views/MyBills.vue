@@ -115,6 +115,7 @@ export default Vue.extend({
    * Gets a list of bills on create.
    */
   async created() {
+    
     this.page = 'Unpaid Bills'
     await this.getBills()
   }
