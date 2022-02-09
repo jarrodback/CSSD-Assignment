@@ -1,4 +1,9 @@
 ﻿describe('Route Tests', () => {
+
+    before(() => {
+        cy.login('test@email.com', 'test1')
+      })
+
  it('loads the my bills page', () => {
   //Act
   cy.visit('/my-bills')
