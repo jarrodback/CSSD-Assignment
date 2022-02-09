@@ -15,7 +15,6 @@ const checkJwtToken = (req, res, next) => {
                 message: "Unauthorized: Invalid token.",
             });
         }
-
         req.userId = decoded.id;
         req.username = decoded.username;
         req.email = decoded.email;
@@ -24,19 +23,18 @@ const checkJwtToken = (req, res, next) => {
     });
 };
 
-const isOperator = (req, res, next) => {
-    const type = req.type;
-
-    if (type !== "Toll Operator") {
-        return res.status(403).send({
-            message:
-                "Unauthorized: You not do have permission to view this page.",
-        });
-    }
-    return next();
-};
+// const isOperator = (req, res, next) => {
+//     const type = req.type;
+//     if (type !== "Toll Operator") {
+//         return res.status(403).send({
+//             message:
+//                 "Unauthorized: You not do have permission to view this page.",
+//         });
+//     }
+//     return next();
+// };
 
 module.exports = {
-    checkJwtToken,
-    isOperator,
+    checkJwtToken
+    //isOperator,
 };

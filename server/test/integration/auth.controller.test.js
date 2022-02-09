@@ -122,4 +122,27 @@ describe("Testing /auth paths", () => {
                 done();
             });
     });
+
+    it("user should not be able to register with invalid data", (done) => {
+        // Arrange
+        const request = {
+            email: "test@test.com"
+        };
+
+        // Act
+        chai.request(server)
+            .post("/auth/register")
+            .send(request)
+            .end((err, res) => {
+                // Assert
+                res.should.have.status(400);
+                res.should.be.a("object");
+                res.body.should.have.property("message");
+                res.body.message.should.be.eql(
+                    "User data is invalid."
+                );
+
+                done();
+            });
+    });
 });

@@ -6,7 +6,9 @@ chai.use(chaiHttp);
 
 let authCookie;
 let authCookieSig;
+
 before(function (done) {
+
     chai.request(server)
         .post("/auth/login")
         .send({
@@ -86,6 +88,74 @@ describe("Testing /bill paths", () => {
                     0
                 );
                 res.body.count.should.equal(2);
+
+                done();
+            });
+    });
+
+    it("Should get bill by id", (done) => {
+        // Arrange
+        const billId = '123456789105';
+        const url = `/bill/${billId}`;
+
+        // Act
+        chai.request(server)
+            .get(url)
+            .set("Cookie", authCookie + ";  " + authCookieSig)
+            .send()
+            .end((err, res) => {
+                // Assert
+                res.should.have.status(200);
+                res.should.be.a("object");
+                res.body.should.haveOwnProperty(
+                    "cost",
+                    72.93887106726764
+                );
+                res.body.should.haveOwnProperty("paid", false);
+                res.body.driver.should.haveOwnProperty(
+                    "username",
+                    "test_username"
+                );
+                res.body.driver.should.haveOwnProperty(
+                    "email",
+                    "test@email.com"
+                );
+                res.body.driver.should.haveOwnProperty(
+                    "type",
+                    "Driver"
+                );
+                res.body.journey.should.haveOwnProperty(
+                    "regNumber",
+                    "test_reg_number"
+                );
+                res.body.journey.should.haveOwnProperty(
+                    "journeyDateTime",
+                    "2022-02-01T15:50:51.039Z"
+                );
+                res.body.journey.entryLocation.should.haveOwnProperty(
+                    "name",
+                    "test_location_1"
+                );
+                res.body.journey.entryLocation.coordinates.should.haveOwnProperty(
+                    "longitude",
+                    50
+                );
+                res.body.journey.entryLocation.coordinates.should.haveOwnProperty(
+                    "latitude",
+                    50
+                );
+                res.body.journey.exitLocation.should.haveOwnProperty(
+                    "name",
+                    "test_location_2"
+                );
+                res.body.journey.exitLocation.coordinates.should.haveOwnProperty(
+                    "longitude",
+                    0
+                );
+                res.body.journey.exitLocation.coordinates.should.haveOwnProperty(
+                    "latitude",
+                    0
+                );
 
                 done();
             });
@@ -370,4 +440,88 @@ describe("Testing /bill paths", () => {
                 done();
             });
     });
+
+    it("Should get a bill by id but does not have authorisation", (done) => {
+        // Arrange
+        const billId = '123456789105'
+        const url = `/bill/${billId}`;
+
+        // Act
+        chai.request(server)
+            .get(url)
+            .set("Cookie", "")
+            .end((err, res) => {
+                // Assert
+                res.should.have.status(401);
+                res.body.message.should.be.eql(
+                    "Unauthorized: No token provided."
+                );
+
+                done();
+            });
+    });
+
+    it("Should get all bills but does not have authorisation", (done) => {
+        // Arrange
+        const url = `/bill/`;
+
+        // Act
+        chai.request(server)
+            .get(url)
+            .set("Cookie", "")
+            .end((err, res) => {
+                // Assert
+                res.should.have.status(401);
+                res.body.message.should.be.eql(
+                    "Unauthorized: No token provided."
+                );
+
+                done();
+            });
+    });
+
+    it("Should pay for a bill but does not have authorisation", (done) => {
+        // Arrange
+        const billId = '123456789105';
+        const requestBody = {
+            paid: true,
+        };
+        const url = `/bill/${billId}`;
+
+        // Act
+        chai.request(server)
+            .put(url)
+            .set("Cookie", "")
+            .send(requestBody)
+            .end((err, res) => {
+                // Assert
+                res.should.have.status(401);
+                res.body.message.should.be.eql(
+                    "Unauthorized: No token provided."
+                );
+
+                done();
+            });
+    });
+
+    it("Should gets a bill by id, but cookie has expired", (done) => {
+        // Arrange
+        const billId = '123456789105'
+        const url = `/bill/${billId}`;
+
+        // Act
+        chai.request(server)
+            .get(url)
+            .set("Cookie", authCookie + "fakeID;  " + authCookieSig)
+            .end((err, res) => {
+                // Assert
+                res.should.have.status(401);
+                res.body.message.should.be.eql(
+                    "Unauthorized: No token provided."
+                );
+
+                done();
+            });
+    });
+
 });
