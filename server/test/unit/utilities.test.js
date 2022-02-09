@@ -33,7 +33,7 @@ describe("Testing utilities functions", () => {
   done();
  })
 
- it.only("Testing convertObjectID", (done) => {
+ it("Testing convertObjectID", (done) => {
     // Arrange
     const id = '123456789101';
 

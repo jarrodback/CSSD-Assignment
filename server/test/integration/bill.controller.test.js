@@ -1,5 +1,4 @@
-﻿let jwt = require("jsonwebtoken");
-let chai = require("chai");
+﻿let chai = require("chai");
 let chaiHttp = require("chai-http");
 let server = require("../../app");
 let should = chai.should();
