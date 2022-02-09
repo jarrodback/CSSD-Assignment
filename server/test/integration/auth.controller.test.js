@@ -145,4 +145,21 @@ describe("Testing /auth paths", () => {
                 done();
             });
     });
+
+    it("user should able to logout", (done) => {
+        // Arrange
+        const request = {
+        };
+
+        // Act
+        chai.request(server)
+            .post("/auth/logout")
+            .send(request)
+            .end((err, res) => {
+                // Assert
+                res.should.have.status(200);
+
+                done();
+            });
+    });
 });

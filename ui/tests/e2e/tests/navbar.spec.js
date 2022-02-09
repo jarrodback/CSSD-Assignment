@@ -1,8 +1,8 @@
 ﻿describe('Navbar Tests', () => {
 
-    before(() => {
-        cy.login('test@email.com', 'test1')
-      })
+ before(() => {
+    cy.login('test@email.com', 'test1')
+ })
  
  context('Languages Dropdown', () => {
   it('shows 23 languages when the languages dropdown is clicked', () => {
