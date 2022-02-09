@@ -8,7 +8,7 @@
               <Input id="password" v-model="loginData.password" placeholder="Password..." rules="required" type="password" label="Password" class="mt-3"/>
             </ValidationObserver>
             <span class="mt-4">New here? <b-link class="link">Sign up!</b-link></span> 
-            <b-button variant="primary" class="mt-3" @click="login">Sign in</b-button>
+            <b-button id="login" variant="primary" class="mt-3" @click="login">Sign in</b-button>
           </b-input-group>
         </template>
       </b-card>

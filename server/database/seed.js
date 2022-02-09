@@ -70,6 +70,13 @@ const journeys = [
         exitLocation: "123456789102",
         journeyDateTime: "2022-02-01T15:50:51.038Z"
     },
+    {
+        _id: "123456789109",
+        regNumber: "test_reg_number",
+        entryLocation: "123456789101",
+        exitLocation: "123456789102",
+        journeyDateTime: "2022-02-01T15:50:51.039Z"
+    }
 ]
 
 const bills = [
@@ -86,6 +93,13 @@ const bills = [
         driver: "123456789108",
         cost: 5,
         paid: true
+    },
+    {
+        _id: "123456789110",
+        journey: "123456789109",
+        driver: "123456789107",
+        cost: 5,
+        paid: false
     }
 ]
 

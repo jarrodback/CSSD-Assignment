@@ -1,4 +1,9 @@
 ﻿describe('My Bills Tests', () => {
+
+ before(() => {
+    cy.login('test@email.com', 'test1')
+ })
+
  it('displays two rows in the bills table', () => {
   //Act
   cy.visit('/my-bills')
