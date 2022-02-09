@@ -373,7 +373,7 @@ describe("Testing /bill paths", () => {
             });
     });
 
-    it("Should throw error when user gets a bill by id, but does not have authorisation", (done) => {
+    it("Should get a bill by id but does not have authorisation", (done) => {
         // Arrange
         const billId = '123456789105'
         const url = `/bill/${billId}`;
@@ -393,7 +393,7 @@ describe("Testing /bill paths", () => {
             });
     });
 
-    it("Should throw error when user gets all bills but does not have authorisation", (done) => {
+    it("Should get all bills but does not have authorisation", (done) => {
         // Arrange
         const url = `/bill/`;
 
@@ -412,7 +412,7 @@ describe("Testing /bill paths", () => {
             });
     });
 
-    it("Should throw error when user pays for a bill but does not have authorisation", (done) => {
+    it("Should pay for a bill but does not have authorisation", (done) => {
         // Arrange
         const billId = '123456789105';
         const requestBody = {
@@ -435,4 +435,25 @@ describe("Testing /bill paths", () => {
                 done();
             });
     });
+
+    it("Should gets a bill by id, but cookie has expired", (done) => {
+        // Arrange
+        const billId = '123456789105'
+        const url = `/bill/${billId}`;
+
+        // Act
+        chai.request(server)
+            .get(url)
+            .set("Cookie", authCookie + "fakeID;  " + authCookieSig)
+            .end((err, res) => {
+                // Assert
+                res.should.have.status(401);
+                res.body.message.should.be.eql(
+                    "Unauthorized: No token provided."
+                );
+
+                done();
+            });
+    });
+
 });
