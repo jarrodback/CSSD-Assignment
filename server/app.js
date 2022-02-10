@@ -23,7 +23,7 @@ app.use(
 
 app.use(
     cors({
-        origin: ["http://localhost:8080", "https://jarrodback.github.io/"],
+        origin: ["http://localhost:8080", "https://jarrodback.github.io"],
         credentials: true,
     })
 );
