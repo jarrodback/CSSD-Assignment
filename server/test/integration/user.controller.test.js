@@ -5,6 +5,9 @@ let server = require("../../app");
 let should = chai.should();
 chai.use(chaiHttp);
 
+let authCookie;
+let authCookieSig;
+
 before(function (done) {
     chai.request(server)
         .post("/auth/login")
