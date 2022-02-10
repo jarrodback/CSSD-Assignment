@@ -2,7 +2,7 @@
 const router = express.Router();
 const { checkJwtToken, isOperator } = require("../middleware/auth/authJwt");
 
-// Get the Bill controller
+// Get the user controller
 const userController = require("../controllers/user.controller");
 
 // Get All Users

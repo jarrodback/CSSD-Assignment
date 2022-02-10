@@ -19,7 +19,9 @@ class DataLayer {
                 });
             });
     }
-
+    /**
+     * Find all users in the database.
+     */
     async findAll(filter) {
         return this.model
             .find(JSON.parse(JSON.stringify(filter)))

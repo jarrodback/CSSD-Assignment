@@ -1,7 +1,7 @@
 ﻿<template>
     <div class="mt-4">
         <b-button
-            v-if="!isDriver()"
+            v-if="!isDriver"
             variant="info"
             v-on:click="goBack()"
         >Back</b-button>
@@ -132,6 +132,7 @@ export default Vue.extend({
         {key: 'Cost', sortable: true},
         {key: 'Actions', sortable: false}]
     },
+
     /**
      * Returns a filtered list of bills based on the text input filters.
      */
@@ -143,20 +144,25 @@ export default Vue.extend({
       )
     },
 
+    /**
+     * Returns a the page name depending on which user is currently logged in.
+     */
     pageName() {
-      if(store.getters.user.type == "Toll Operator" && this.$route.params.username)
-      {
-        return "Displaying bills for " + this.$route.params.username;
-      }
-      else
-      {
-        return "My Bills";
-      }
+      return store.getters.user.type === "Toll Operator" && this.$route.params.username ? `Displaying bills for ${this.$route.params.username}` : "My Bills";
+    },
+
+     /**
+     * Returns if the user type is driver.
+     */
+    isDriver() {
+      return store.getters.user.type === "Driver"
     }
   },
+
   methods: {
     formatDate, //Import the format date helper function to be used in the template.
     formatCost, //Import the format cost helper function to be used in the template.
+
     /**
      * Gets a list of bills from the api and sets the bills and totalcount variables.
      */
@@ -171,14 +177,14 @@ export default Vue.extend({
       this.totalCount = data.count
     },
 
-    isDriver() {
-      return store.getters.user.type == "Driver"
-    },
-
+     /**
+     * Redirects back to the view users page for toll operator.
+     */
     goBack() {
       this.$router.push("view-users");
     }
   },
+
   /**
    * Gets a list of bills on create.
    */

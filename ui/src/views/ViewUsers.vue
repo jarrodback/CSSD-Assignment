@@ -72,6 +72,7 @@ export default Vue.extend({
       },
     }
   },
+
   computed: {
     /**
      * Returns a list of headings to be used in the table and states if they are sortable fields.
@@ -81,8 +82,9 @@ export default Vue.extend({
         {key: 'email', sortable: false},
         {key: 'Actions', sortable: false}]
     },
+
     /**
-     * Returns a filtered list of bills based on the text input filters.
+     * Returns a filtered list of users based on the text input filters.
      */
     filteredUsers() {
       return this.users.filter((user) => 
@@ -91,9 +93,11 @@ export default Vue.extend({
       )
     }
   },
+
   methods: {
     formatDate, //Import the format date helper function to be used in the template.
     formatCost, //Import the format cost helper function to be used in the template.
+
     /*
      * Gets the users from the api functions and returns the data.
      */
@@ -103,8 +107,9 @@ export default Vue.extend({
       this.totalCount = data.count
     }
   },
+
   /**
-   * Gets a list of bills on create.
+   * Gets a list of users on create.
    */
   async created() {
     await this.getUsers();

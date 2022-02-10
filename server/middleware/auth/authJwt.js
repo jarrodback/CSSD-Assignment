@@ -22,7 +22,7 @@ const checkJwtToken = (req, res, next) => {
         return next();
     });
 };
-
+// Check if the active user is an operator
 const isOperator = (req, res, next) => {
     const type = req.type;
     if (type !== "Toll Operator") {
