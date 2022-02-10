@@ -4,7 +4,7 @@ const api = class Api {
     constructor() {
         this.baseUrl =
             process.env.NODE_ENV === "production"
-                ? "https://cssd-highway.herokuapp.com/"
+                ? "https://cssd-highway.herokuapp.com"
                 : "http://localhost:3000";
         this.authUrl =
             process.env.NODE_ENV === "production"
