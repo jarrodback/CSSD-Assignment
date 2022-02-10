@@ -25,7 +25,9 @@ before(function (done) {
 describe("Testing /user paths", () => {
     it("Should get all users", (done) => {
         // Arrange
-        const url = "/user/";
+        const limit = "10";
+        const offset = "0";
+        const url = `/user?limit=${limit}&offset=${offset}`;
         // Act
         chai.request(server)
             .get(url)
