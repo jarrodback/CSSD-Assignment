@@ -2,8 +2,14 @@
 
 const api = class Api {
     constructor() {
-        this.baseUrl = "http://localhost:3000";
-        this.authUrl = "http://localhost:3000/auth";
+        this.baseUrl =
+            process.env.NODE_ENV === "production"
+                ? "https://cssd-highway.herokuapp.com"
+                : "http://localhost:3000";
+        this.authUrl =
+            process.env.NODE_ENV === "production"
+                ? "https://cssd-highway.herokuapp.com/auth"
+                : "http://localhost:3000/auth";
     }
 
     async getAllBills(queryString) {
