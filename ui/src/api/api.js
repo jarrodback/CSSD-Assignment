@@ -27,17 +27,37 @@ const api = class Api {
             });
     }
 
+    async getAllUsers(queryString) {
+        const query = {
+            limit: queryString.limit,
+            offset: queryString.offset,
+            type: queryString.type,
+        };
+
+        return axios
+            .get(`${this.baseUrl}/user/`, {
+                params: JSON.parse(JSON.stringify(query)),
+                withCredentials: true,
+            })
+            .then((response) => {
+                return response.data;
+            })
+            .catch((error) => {
+                throw error;
+            });
+    }
+
     async getBillById(billId) {
         return axios
-          .get(`${this.baseUrl}/bill/${billId}`, {
-              withCredentials: true,
-          })
-          .then((response) => {
-              return response.data;
-          })
-          .catch((error) => {
-              throw error;
-          });
+            .get(`${this.baseUrl}/bill/${billId}`, {
+                withCredentials: true,
+            })
+            .then((response) => {
+                return response.data;
+            })
+            .catch((error) => {
+                throw error;
+            });
     }
 
     async payBill(billId) {

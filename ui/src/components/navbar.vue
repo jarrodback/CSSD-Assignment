@@ -4,7 +4,11 @@
         id="navbar"
         v-if="loggedIn"
     >
-        <a class="d-flex align-items-center text-decoration-none" href="/my-bills">
+        <a
+            class="d-flex align-items-center text-decoration-none"
+            href=""
+            v-on:click="goToHome"
+        >
             <img
                 src="@/assets/creditcard.png"
                 alt="Self Service Portal Logo"
@@ -12,7 +16,12 @@
             <h4 class="ml-3 mb-0">Self Service Portal</h4>
         </a>
         <b-navbar-nav class="ml-auto">
-      <b-nav-item right class="mr-3" id="support" :to="{ name: 'Help' }">
+            <b-nav-item
+                right
+                class="mr-3"
+                id="support"
+                :to="{ name: 'Help' }"
+            >
                 <img
                     src="@/assets/support.png"
                     alt="support icon"
@@ -90,7 +99,10 @@
                         class="mr-2"
                     /><span id="username">{{ username }}</span>
                 </template>
-                <b-dropdown-item v-on:click="signOut">Sign Out</b-dropdown-item>
+                <b-dropdown-item
+                    id="signOut"
+                    v-on:click="signOut"
+                >Sign Out</b-dropdown-item>
             </b-nav-item-dropdown>
         </b-navbar-nav>
     </b-navbar>
@@ -131,6 +143,17 @@ export default Vue.extend({
                     //Intentional comment for sonar. Stop route error if already on same page.
                 });
             });
+        },
+
+        /**
+         * Return to the landing page depending on the user that is logged in.
+         */
+        goToHome() {
+            if (store.getters.user.type == "Toll Operator") {
+                this.$router.push("view-users");
+            } else {
+                this.$router.push("my-bills");
+            }
         },
     },
     computed: {
