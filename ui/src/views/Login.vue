@@ -48,8 +48,15 @@ export default {
                         username: data.username,
                         type: data.type,
                     });
-
-                    this.$router.push("my-bills");
+                    
+                    if(store.getters.user.type == 'Toll Operator')
+                    {
+                      this.$router.push("view-users");
+                    }
+                    else
+                    {
+                      this.$router.push("my-bills");
+                    }
                 })
                 .catch((error) => {
                   this.$bvToast.toast(error.message, {

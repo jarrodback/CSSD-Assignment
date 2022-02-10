@@ -1,52 +1,100 @@
 ﻿<template>
-  <div class="mt-4">
-    <h1 class="mb-4">My Bills</h1>
-    <b-form-group>
-      <b-form-radio-group buttons button-variant="outline-primary" v-model="page" :options="pages"
-                          @change="getBills" />
-    </b-form-group>
-    <b-table id="bills-table" :items="filteredBills" :fields="fields" show-empty empty-text="No bills match the filter." responsive striped>
-      <template #head(entrylocation)="head" >
-        {{head.label}}
-        <b-input size="sm" v-model="filter.entryLocation" placeholder="Entry Location..." id="entry-location-filter"/>
-      </template>
-      <template #head(exitlocation)="head" >
-        {{ head.label }}
-        <b-input size="sm" v-model="filter.exitLocation" placeholder="Exit Location..." id="exit-location-filter"/>
-      </template>
-      <template #head(carregistrationnumber)="head" >
-        {{ head.label }}
-        <b-input size="sm" v-model="filter.carRegistrationNumber" placeholder="Car Registration Number..." id="car-registration-filter"/>
-      </template>
-      <template #cell(entrylocation)="cell">
-        {{cell.item.journey.entryLocation.name }}
-      </template>
-      <template #cell(exitlocation)="cell">
-        {{ cell.item.journey.exitLocation.name }}
-      </template>
-      <template #cell(carregistrationnumber)="cell">
-        {{ cell.item.journey.regNumber }}
-      </template>
-      <template #cell(date)="cell">
-        {{ formatDate(cell.item.journey.journeyDateTime) }}
-      </template>
-      <template #cell(cost)="cell">
-        {{ formatCost(cell.item.cost) }}
-      </template>
-      <template #cell(actions)="cell">
-        <b-link :to="{ name: 'PayBill', params: { id: cell.item._id }}" v-if="page !== 'Payment History'">Pay Bill</b-link>
-      </template>
-    </b-table>
-    <div class="d-flex justify-content-between align-items-baseline">
-      <span class="input-group w-auto align-items-baseline">
-        <span class="input-group-append mr-2">Per Page: </span>
-        <b-form-select v-model="limit" :options="[5, 10, 15]" class="custom-select custom-select-sm"
-                       @change="getBills" />
-      </span>
-      <b-pagination :per-page="limit" :total-rows="totalCount" v-model="offset" @input="getBills"></b-pagination>
-      <span>{{ totalCount }} bills in {{ Math.ceil(totalCount / limit) }} pages</span>
+    <div class="mt-4">
+        <b-button
+            v-if="!isDriver()"
+            variant="info"
+            v-on:click="goBack()"
+        >Back</b-button>
+        <h1 class="mb-4">{{pageName}}</h1>
+        <b-form-group>
+            <b-form-radio-group
+                buttons
+                button-variant="outline-primary"
+                v-model="page"
+                :options="pages"
+                @change="getBills"
+            />
+        </b-form-group>
+        <b-table
+            id="bills-table"
+            :items="filteredBills"
+            :fields="fields"
+            show-empty
+            empty-text="No bills match the filter."
+            responsive
+            striped
+        >
+            <template #head(entrylocation)="head">
+                {{head.label}}
+                <b-input
+                    size="sm"
+                    v-model="filter.entryLocation"
+                    placeholder="Entry Location..."
+                    id="entry-location-filter"
+                />
+            </template>
+            <template #head(exitlocation)="head">
+                {{ head.label }}
+                <b-input
+                    size="sm"
+                    v-model="filter.exitLocation"
+                    placeholder="Exit Location..."
+                    id="exit-location-filter"
+                />
+            </template>
+            <template #head(carregistrationnumber)="head">
+                {{ head.label }}
+                <b-input
+                    size="sm"
+                    v-model="filter.carRegistrationNumber"
+                    placeholder="Car Registration Number..."
+                    id="car-registration-filter"
+                />
+            </template>
+            <template #cell(entrylocation)="cell">
+                {{cell.item.journey.entryLocation.name }}
+            </template>
+            <template #cell(exitlocation)="cell">
+                {{ cell.item.journey.exitLocation.name }}
+            </template>
+            <template #cell(carregistrationnumber)="cell">
+                {{ cell.item.journey.regNumber }}
+            </template>
+            <template #cell(date)="cell">
+                {{ formatDate(cell.item.journey.journeyDateTime) }}
+            </template>
+            <template #cell(cost)="cell">
+                {{ formatCost(cell.item.cost) }}
+            </template>
+            <template
+                #cell(actions)="cell"
+                v-if="isDriver()"
+            >
+                <b-link
+                    :to="{ name: 'PayBill', params: { id: cell.item._id }}"
+                    v-if="page !== 'Payment History'"
+                >Pay Bill</b-link>
+            </template>
+        </b-table>
+        <div class="d-flex justify-content-between align-items-baseline">
+            <span class="input-group w-auto align-items-baseline">
+                <span class="input-group-append mr-2">Per Page: </span>
+                <b-form-select
+                    v-model="limit"
+                    :options="[5, 10, 15]"
+                    class="custom-select custom-select-sm"
+                    @change="getBills"
+                />
+            </span>
+            <b-pagination
+                :per-page="limit"
+                :total-rows="totalCount"
+                v-model="offset"
+                @input="getBills"
+            ></b-pagination>
+            <span>{{ totalCount }} bills in {{ Math.ceil(totalCount / limit) }} pages</span>
+        </div>
     </div>
-  </div>
 </template>
 
 <script lang="js">
@@ -69,7 +117,7 @@ export default Vue.extend({
         carRegistrationNumber: '' //Stores the car registration number filter.
       },
       pages: ['Unpaid Bills', 'Payment History'],
-      page: ''
+      page: '',
     }
   },
   computed: {
@@ -93,6 +141,17 @@ export default Vue.extend({
           bill.journey.exitLocation.name.includes(this.filter.exitLocation) &&
           bill.journey.regNumber.includes(this.filter.carRegistrationNumber)
       )
+    },
+
+    pageName() {
+      if(store.getters.user.type == "Toll Operator" && this.$route.params.username)
+      {
+        return "Displaying bills for " + this.$route.params.username;
+      }
+      else
+      {
+        return "My Bills";
+      }
     }
   },
   methods: {
@@ -106,9 +165,18 @@ export default Vue.extend({
       if(this.page === 'Unpaid Bills'){
         paid = false
       }
-      const data = await api.getAllBills({driver: store.getters.user.id, paid: paid, limit: this.limit, offset: parseInt(this.offset - 1)})
+      const driverName = this.$route.params.id ?? store.getters.user.name
+      const data = await api.getAllBills({driver: driverName, paid: paid, limit: this.limit, offset: parseInt(this.offset - 1)})
       this.bills = data.bills
       this.totalCount = data.count
+    },
+
+    isDriver() {
+      return store.getters.user.type == "Driver"
+    },
+
+    goBack() {
+      this.$router.push("view-users");
     }
   },
   /**

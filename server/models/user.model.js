@@ -22,7 +22,7 @@ module.exports = (mongoose) => {
             required: [true, "You must supply the user's role."],
             enum: {
                 values: ["Driver", "Toll Operator"],
-                message: "Type is not valid. Must be 'Driver'.",
+                message: "Type is not valid. Must be 'Driver' or 'Toll Operator'.",
             },
         },
     });

@@ -10,13 +10,13 @@ exports.login = async (req, res) => {
         .then((data) => {
             req.session.token = data.token;
             req.session.username = data.username;
-            req.session.role = data.role;
+            req.session.type = data.type;
             req.session.id = data.id;
 
             res.status(200).send({
                 message: "Successfully logged in.",
                 username: data.username,
-                role: data.role,
+                type: data.type,
                 id: data.id,
             });
         })
