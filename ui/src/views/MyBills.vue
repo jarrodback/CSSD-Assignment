@@ -1,11 +1,15 @@
 ﻿<template>
     <div class="mt-4">
+        <h1 class="mb-3">{{pageName}}</h1>
         <b-button
             v-if="!isDriver"
-            variant="info"
-            v-on:click="goBack()"
-        >Back</b-button>
-        <h1 class="mb-4">{{pageName}}</h1>
+            variant="link"
+            @click="goBack()"
+            class="p-0 mb-3"
+        >
+          <b-icon-chevron-left />
+          Back
+        </b-button>
         <b-form-group>
             <b-form-radio-group
                 buttons
