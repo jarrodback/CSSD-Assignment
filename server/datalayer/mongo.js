@@ -14,9 +14,11 @@ class DataLayer {
             .skip(filter.offset * filter.limit)
             .populate(JSON.parse(JSON.stringify(populateFilter)))
             .then((bills) => {
-                return this.model.countDocuments().then((count) => {
-                    return { bills: bills, count: count };
-                });
+                return this.model
+                    .countDocuments(JSON.parse(JSON.stringify(filter)))
+                    .then((count) => {
+                        return { bills: bills, count: count };
+                    });
             });
     }
     /**
@@ -28,9 +30,11 @@ class DataLayer {
             .limit(filter.limit)
             .skip(filter.offset * filter.limit)
             .then((users) => {
-                return this.model.countDocuments().then((count) => {
-                    return { users: users, count: count };
-                });
+                return this.model
+                    .countDocuments(JSON.parse(JSON.stringify(filter)))
+                    .then((count) => {
+                        return { users: users, count: count };
+                    });
             });
     }
 

@@ -36,7 +36,7 @@ describe("Testing /bill paths", () => {
                 // Assert
                 res.should.have.status(200);
                 res.should.be.a("object");
-                res.body.bills.should.have.lengthOf(3);
+                res.body.bills.should.have.lengthOf(7);
                 res.body.bills[0].should.haveOwnProperty(
                     "cost",
                     72.93887106726764
@@ -86,7 +86,7 @@ describe("Testing /bill paths", () => {
                     "latitude",
                     0
                 );
-                res.body.count.should.equal(3);
+                res.body.count.should.equal(7);
 
                 done();
             });
@@ -169,7 +169,7 @@ describe("Testing /bill paths", () => {
 
                 res.should.have.status(200);
                 res.should.be.a("object");
-                res.body.bills.should.have.lengthOf(2);
+                res.body.bills.should.have.lengthOf(6);
                 res.body.bills[0].should.haveOwnProperty(
                     "cost",
                     72.93887106726764
@@ -219,7 +219,7 @@ describe("Testing /bill paths", () => {
                     "latitude",
                     0
                 );
-                res.body.count.should.equal(3);
+                res.body.count.should.equal(6);
 
                 done();
             });
@@ -290,7 +290,7 @@ describe("Testing /bill paths", () => {
                     "latitude",
                     0
                 );
-                res.body.count.should.equal(3);
+                res.body.count.should.equal(1);
 
                 done();
             });
@@ -360,7 +360,7 @@ describe("Testing /bill paths", () => {
                     "latitude",
                     0
                 );
-                res.body.count.should.equal(3);
+                res.body.count.should.equal(7);
 
                 done();
             });
@@ -382,7 +382,7 @@ describe("Testing /bill paths", () => {
                 res.should.have.status(200);
                 res.should.be.a("object");
                 res.body.bills.should.have.lengthOf(0);
-                res.body.count.should.equal(3);
+                res.body.count.should.equal(7);
 
                 done();
             });

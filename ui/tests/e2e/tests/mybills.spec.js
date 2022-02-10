@@ -8,7 +8,7 @@
         cy.visit("/my-bills");
 
         // Assert
-        cy.get("#bills-table").find("tbody tr").should("have.length", 2);
+        cy.get("#bills-table").find("tbody tr").should("have.length", 6);
     });
 
     it("Entry Location filters the my bills table", () => {
