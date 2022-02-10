@@ -29,7 +29,10 @@
                 />
             </template>
             <template #cell(actions)="cell">
-                <b-link :to="{ name: 'MyBills', params: { id: cell.item._id, username: cell.item.username }}">View User's Bills</b-link>
+                <b-link
+                    id="viewUserBills"
+                    :to="{ name: 'MyBills', params: { id: cell.item._id, username: cell.item.username }}"
+                >View User's Bills</b-link>
             </template>
         </b-table>
         <div class="d-flex justify-content-between align-items-baseline">

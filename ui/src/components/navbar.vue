@@ -99,7 +99,10 @@
                         class="mr-2"
                     /><span id="username">{{ username }}</span>
                 </template>
-                <b-dropdown-item v-on:click="signOut">Sign Out</b-dropdown-item>
+                <b-dropdown-item
+                    id="signOut"
+                    v-on:click="signOut"
+                >Sign Out</b-dropdown-item>
             </b-nav-item-dropdown>
         </b-navbar-nav>
     </b-navbar>

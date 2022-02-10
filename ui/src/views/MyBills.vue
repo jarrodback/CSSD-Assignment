@@ -68,7 +68,7 @@
             </template>
             <template
                 #cell(actions)="cell"
-                v-if="isDriver()"
+                v-if="isDriver"
             >
                 <b-link
                     :to="{ name: 'PayBill', params: { id: cell.item._id }}"
@@ -171,7 +171,7 @@ export default Vue.extend({
       if(this.page === 'Unpaid Bills'){
         paid = false
       }
-      const driverName = this.$route.params.id ?? store.getters.user.name
+      const driverName = this.$route.params.id ?? store.getters.user.id
       const data = await api.getAllBills({driver: driverName, paid: paid, limit: this.limit, offset: parseInt(this.offset - 1)})
       this.bills = data.bills
       this.totalCount = data.count
