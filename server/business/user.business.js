@@ -115,6 +115,7 @@ module.exports = class UserBusiness {
         };
 
         return this.dataLayer.findAll(filter).catch((error) => {
+            console.log(error);
             throw httpError(500, error.message);
         });
     }
