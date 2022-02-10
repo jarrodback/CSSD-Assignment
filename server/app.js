@@ -4,8 +4,8 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const cookieSession = require("cookie-session");
 const cookieParser = require("cookie-parser");
-const swaggerUi = require('swagger-ui-express'),
-  swaggerDocument = require('./swagger.json')
+const swaggerUi = require("swagger-ui-express"),
+    swaggerDocument = require("./swagger.json");
 
 require("./database");
 require("dotenv").config();
@@ -21,15 +21,20 @@ app.use(
     })
 );
 
-app.use(cors({ origin: "http://localhost:8080", credentials: true }));
+app.use(
+    cors({
+        origin: ["http://localhost:8080", "https://jarrodback.github.io/"],
+        credentials: true,
+    })
+);
 
 /**
  * Router setup
  */
 const authRouter = require("./routes/auth.routes");
 const billRouter = require("./routes/bill.routes");
-app.get('/api-docs/swagger.json', (req, res) => res.json(swaggerDocument));
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+app.get("/api-docs/swagger.json", (req, res) => res.json(swaggerDocument));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 /**
  * View Engine setup
@@ -45,6 +50,6 @@ app.use(cookieParser());
 
 // Configuring the main routes
 app.use("/auth", authRouter);
-app.use("/bill", billRouter)
+app.use("/bill", billRouter);
 
 module.exports = app;
