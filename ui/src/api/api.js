@@ -2,8 +2,14 @@
 
 const api = class Api {
     constructor() {
-        this.baseUrl = "http://localhost:3000";
-        this.authUrl = "http://localhost:3000/auth";
+        this.baseUrl =
+            process.env.NODE_ENV === "production"
+                ? "http://cssd-highway.herokuapp.com/"
+                : "http://localhost:3000";
+        this.authUrl =
+            process.env.NODE_ENV === "production"
+                ? "http://cssd-highway.herokuapp.com/auth"
+                : "http://localhost:3000/auth";
     }
 
     async getAllBills(queryString) {
@@ -29,15 +35,15 @@ const api = class Api {
 
     async getBillById(billId) {
         return axios
-          .get(`${this.baseUrl}/bill/${billId}`, {
-              withCredentials: true,
-          })
-          .then((response) => {
-              return response.data;
-          })
-          .catch((error) => {
-              throw error;
-          });
+            .get(`${this.baseUrl}/bill/${billId}`, {
+                withCredentials: true,
+            })
+            .then((response) => {
+                return response.data;
+            })
+            .catch((error) => {
+                throw error;
+            });
     }
 
     async payBill(billId) {
