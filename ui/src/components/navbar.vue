@@ -145,6 +145,9 @@ export default Vue.extend({
             });
         },
 
+        /**
+         * Return to the landing page depending on the user that is logged in.
+         */
         goToHome() {
             if (store.getters.user.type == "Toll Operator") {
                 this.$router.push("view-users");
