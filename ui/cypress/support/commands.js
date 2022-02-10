@@ -23,10 +23,25 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-Cypress.Commands.add('login', (email, password) => {
-    cy.visit('/')
-    cy.get('#email').type(email)
-    cy.get('#password').type(password)
-    cy.get('#login').click()
-    cy.url().should('contain', '/my-bills')
-  })
+Cypress.Commands.add("login", (email, password) => {
+    cy.visit("/");
+    cy.get("#email").type(email);
+    cy.get("#password").type(password);
+    cy.get("#login").click();
+    cy.url().should("contain", "/my-bills");
+});
+
+Cypress.Commands.add("adminLogin", (email, password) => {
+    cy.visit("/");
+    cy.get("#email").type(email);
+    cy.get("#password").type(password);
+    cy.get("#login").click();
+    cy.url().should("contain", "/view-users");
+});
+
+Cypress.Commands.add("signOut", () => {
+    cy.visit("/");
+    cy.get("#profile").click();
+    cy.get("#signOut").click();
+    cy.url().should("contain", "/login");
+});

@@ -34,6 +34,13 @@ const users = [
         password: bcrypt.hashSync("test1", 8),
         type: "Driver",
     },
+    {
+        _id: "123456789111",
+        username: "operator_username",
+        email: "operator@email.com",
+        password: bcrypt.hashSync("test1", 8),
+        type: "Toll Operator",
+    }
 ];
 
 const locations = [

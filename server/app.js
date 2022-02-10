@@ -33,6 +33,8 @@ app.use(
  */
 const authRouter = require("./routes/auth.routes");
 const billRouter = require("./routes/bill.routes");
+const userRouter = require("./routes/user.routes");
+
 app.get("/api-docs/swagger.json", (req, res) => res.json(swaggerDocument));
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
@@ -51,5 +53,6 @@ app.use(cookieParser());
 // Configuring the main routes
 app.use("/auth", authRouter);
 app.use("/bill", billRouter);
+app.use("/user", userRouter);
 
 module.exports = app;

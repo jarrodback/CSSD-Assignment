@@ -47,7 +47,8 @@ module.exports = class UserBusiness {
                     id: user._id,
                 };
             })
-            .catch(() => {throw httpError(401, "Your email or password is incorrect.");
+            .catch(() => {
+                throw httpError(401, "Your email or password is incorrect.");
             });
     }
 
@@ -102,7 +103,22 @@ module.exports = class UserBusiness {
                 throw httpError(404, error.message);
             });
     }
-}
+
+    /*
+     *  Find all users and apply any filters
+     */
+    async findAllUsers(queryString) {
+        const filter = {
+            offset: queryString.offset,
+            limit: queryString.limit,
+            type: queryString.type,
+        };
+
+        return this.dataLayer.findAll(filter).catch((error) => {
+            throw httpError(500, error.message);
+        });
+    }
+};
 
 /**
  *  Validates the data in a User.

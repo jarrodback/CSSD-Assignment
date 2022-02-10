@@ -15,7 +15,7 @@ export const isAuthenticated = (to, from, next) => {
  * Check if the user transitioning the route is an admin.
  */
 export const isOperator = (to, from, next) => {
-    if (store.getters.user.type == "Operator") {
+    if (store.getters.user.type == "Toll Operator") {
         next();
     } else {
         next({ path: "/forbidden" });

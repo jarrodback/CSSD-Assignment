@@ -22,19 +22,19 @@ const checkJwtToken = (req, res, next) => {
         return next();
     });
 };
-
-// const isOperator = (req, res, next) => {
-//     const type = req.type;
-//     if (type !== "Toll Operator") {
-//         return res.status(403).send({
-//             message:
-//                 "Unauthorized: You not do have permission to view this page.",
-//         });
-//     }
-//     return next();
-// };
+// Check if the active user is an operator
+const isOperator = (req, res, next) => {
+    const type = req.type;
+    if (type !== "Toll Operator") {
+        return res.status(403).send({
+            message:
+                "Unauthorized: You not do have permission to view this page.",
+        });
+    }
+    return next();
+};
 
 module.exports = {
-    checkJwtToken
-    //isOperator,
+    checkJwtToken,
+    isOperator,
 };

@@ -8,7 +8,6 @@ let authCookie;
 let authCookieSig;
 
 before(function (done) {
-
     chai.request(server)
         .post("/auth/login")
         .send({
@@ -95,7 +94,7 @@ describe("Testing /bill paths", () => {
 
     it("Should get bill by id", (done) => {
         // Arrange
-        const billId = '123456789105';
+        const billId = "123456789105";
         const url = `/bill/${billId}`;
 
         // Act
@@ -107,10 +106,7 @@ describe("Testing /bill paths", () => {
                 // Assert
                 res.should.have.status(200);
                 res.should.be.a("object");
-                res.body.should.haveOwnProperty(
-                    "cost",
-                    72.93887106726764
-                );
+                res.body.should.haveOwnProperty("cost", 72.93887106726764);
                 res.body.should.haveOwnProperty("paid", false);
                 res.body.driver.should.haveOwnProperty(
                     "username",
@@ -120,10 +116,7 @@ describe("Testing /bill paths", () => {
                     "email",
                     "test@email.com"
                 );
-                res.body.driver.should.haveOwnProperty(
-                    "type",
-                    "Driver"
-                );
+                res.body.driver.should.haveOwnProperty("type", "Driver");
                 res.body.journey.should.haveOwnProperty(
                     "regNumber",
                     "test_reg_number"
@@ -443,7 +436,7 @@ describe("Testing /bill paths", () => {
 
     it("Should get a bill by id but does not have authorisation", (done) => {
         // Arrange
-        const billId = '123456789105'
+        const billId = "123456789105";
         const url = `/bill/${billId}`;
 
         // Act
@@ -482,7 +475,7 @@ describe("Testing /bill paths", () => {
 
     it("Should pay for a bill but does not have authorisation", (done) => {
         // Arrange
-        const billId = '123456789105';
+        const billId = "123456789105";
         const requestBody = {
             paid: true,
         };
@@ -506,7 +499,7 @@ describe("Testing /bill paths", () => {
 
     it("Should gets a bill by id, but cookie has expired", (done) => {
         // Arrange
-        const billId = '123456789105'
+        const billId = "123456789105";
         const url = `/bill/${billId}`;
 
         // Act
@@ -523,5 +516,4 @@ describe("Testing /bill paths", () => {
                 done();
             });
     });
-
 });

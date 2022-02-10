@@ -4,8 +4,9 @@ import MyBills from "@/views/MyBills";
 import PayBill from "@/views/PayBill";
 import Login from "@/views/Login";
 import Register from "@/views/Register";
-import { isAuthenticated, isLoggedOut } from "../auth";
+import { isAuthenticated, isLoggedOut, isOperator } from "../auth";
 import Help from "@/views/Help";
+import ViewUsers from "@/views/ViewUsers";
 
 /**
  * Import Vue Router.
@@ -37,6 +38,15 @@ const routes = [
             title: "Pay Bill",
         },
         beforeEnter: isAuthenticated,
+    },
+    {
+        path: "/view-users",
+        name: "ViewUsers",
+        component: ViewUsers,
+        meta: {
+            title: "View Users",
+        },
+        beforeEnter: isOperator,
     },
     {
         path: "/login",
