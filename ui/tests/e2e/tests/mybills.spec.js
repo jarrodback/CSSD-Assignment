@@ -1,13 +1,12 @@
 ﻿describe("My Bills Tests", () => {
     before(() => {
         cy.login("test@email.com", "test1");
-        cy.wait(2000);
+        cy.visit("/my-bills");
     });
 
-    it("displays two rows in the bills table", () => {
+    it("displays 6 rows in the bills table", () => {
         // Act
         cy.visit("/my-bills");
-
         // Assert
         cy.get("#bills-table").find("tbody tr").should("have.length", 6);
     });
@@ -22,6 +21,7 @@
         cy.get("#bills-table")
             .find("tbody tr")
             .should("have.text", "No bills match the filter.");
+        cy.get("#bills-table").get("#entry-location-filter").clear();
     });
 
     it("Exit Location filters the my bills table", () => {
@@ -34,6 +34,7 @@
         cy.get("#bills-table")
             .find("tbody tr")
             .should("have.text", "No bills match the filter.");
+        cy.get("#bills-table").get("#exit-location-filter").clear();
     });
 
     it("Car Registration Number filters the my bills table", () => {
@@ -46,6 +47,7 @@
         cy.get("#bills-table")
             .find("tbody tr")
             .should("have.text", "No bills match the filter.");
+        cy.get("#bills-table").get("#car-registration-filter").clear();
     });
 
     it("Should show more of the drivers bills on page 2", () => {
@@ -54,6 +56,7 @@
             '*[class^="custom-select custom-select-sm custom-select"]'
         ).select("5");
         cy.get('*[class^="page-link"]').contains("2").click();
+        cy.wait(1000);
         // Assert
         cy.get("#bills-table").find("tbody tr").should("have.length", 1);
     });
@@ -67,6 +70,4 @@
             .find("h1")
             .should("have.text", "Frequently Asked Questions (FAQ)");
     });
-
-    //Help page needs testing
 });
