@@ -48,8 +48,9 @@ module.exports = {
                     collapsable: false,
                     children: [
                         "",
-                        "Homepage",
                         "UserType",
+                        "Login",
+                        "Homepage",
                         "ViewMyBills",
                         "PayMyBills",
                         "ViewAllBills",
