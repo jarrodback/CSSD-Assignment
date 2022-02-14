@@ -52,7 +52,7 @@ module.exports = {
                         "UserType",
                         "ViewMyBills",
                         "PayMyBills",
-                        "ViewAllBills",
+                        "ViewAllOperatorBills",
                     ],
                 },
             ],
