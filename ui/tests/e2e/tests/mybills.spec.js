@@ -1,6 +1,26 @@
 ﻿describe("My Bills Tests", () => {
+    let cookie;
+    let cookieSig;
+
     before(() => {
         cy.login("test@email.com", "test1");
+
+        cy.getCookie("highwayTracker-token")
+            .should("exist")
+            .then((c) => {
+                // save cookie until we need it
+                console.log(c);
+                cookie = c;
+            });
+
+        cy.getCookie("highwayTracker-token.sig")
+            .should("exist")
+            .then((c) => {
+                // save cookie until we need it
+                console.log(c);
+                cookieSig = c;
+            });
+
         cy.visit("/my-bills");
     });
 
@@ -52,6 +72,9 @@
 
     it("Should show more of the drivers bills on page 2", () => {
         // Act
+        cy.setCookie("highwayTracker-token", cookie.value);
+        cy.setCookie("highwayTracker-token.sig", cookieSig.value);
+
         cy.get(
             '*[class^="custom-select custom-select-sm custom-select"]'
         ).select("5");
