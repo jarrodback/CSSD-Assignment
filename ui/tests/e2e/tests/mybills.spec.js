@@ -9,7 +9,6 @@
             .should("exist")
             .then((c) => {
                 // save cookie until we need it
-                console.log(c);
                 cookie = c;
             });
 
@@ -17,7 +16,6 @@
             .should("exist")
             .then((c) => {
                 // save cookie until we need it
-                console.log(c);
                 cookieSig = c;
             });
 
@@ -71,14 +69,14 @@
     });
 
     it("Should show more of the drivers bills on page 2", () => {
-        // Act
+        // Arrange
         cy.setCookie("highwayTracker-token", cookie.value);
         cy.setCookie("highwayTracker-token.sig", cookieSig.value);
-
+        // Act
         cy.get(
             '*[class^="custom-select custom-select-sm custom-select"]'
         ).select("5");
-        cy.get('*[class^="page-link"]').contains("2").click();
+        cy.get("#paginationBar li").eq(4).click();
         cy.wait(1000);
         // Assert
         cy.get("#bills-table").find("tbody tr").should("have.length", 1);

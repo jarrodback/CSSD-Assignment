@@ -7,8 +7,8 @@
             @click="goBack()"
             class="p-0 mb-3"
         >
-          <b-icon-chevron-left />
-          Back
+            <b-icon-chevron-left />
+            Back
         </b-button>
         <b-form-group>
             <b-form-radio-group
@@ -91,6 +91,7 @@
                 />
             </span>
             <b-pagination
+                id="paginationBar"
                 :per-page="limit"
                 :total-rows="totalCount"
                 v-model="offset"
