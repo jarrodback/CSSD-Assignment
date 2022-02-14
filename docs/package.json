@@ -1,0 +1,19 @@
+{
+  "name": "Nordic Transport Group Self Service Portal",
+  "version": "0.0.1",
+  "description": "A Self Service portal which allows users to pay for charges which they have incurred by driving on highways owned by the Nordic Transport Group.",
+  "main": "index.js",
+  "authors": {
+    "name": "Jacob Minor",
+    "email": "b8015484@my.shu.ac.uk"
+  },
+  "repository": "https://github.com/jarrodback/CSSD-Assignment/Nordic Transport Group Self Service Portal",
+  "scripts": {
+    "dev": "vuepress dev src",
+    "build": "vuepress build src"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^1.5.3"
+  }
+}
