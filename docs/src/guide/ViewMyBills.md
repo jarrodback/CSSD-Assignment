@@ -1,7 +1,19 @@
 # Viewing my bills
 
-Because VuePress applications are server-rendered in Node.js when generating static builds, any Vue usage must conform to the [universal code requirements](https://ssr.vuejs.org/en/universal.html). In short, make sure to only access Browser / DOM APIs in `beforeMount` or `mounted` hooks.
+When logged in as a user, this is the route page of the system. Using this page, the user can see all of their outstanding bills. When the user clicks the toggle, they can switch the table view to see all of their payment history.
 
-If you are using or demoing components that are not SSR friendly (for example containing custom directives), you can wrap them inside the built-in `<ClientOnly>` component:
+![Toggle](../.vuepress/public/images/MyBillsToggle.png)
 
-#
+![Unpaid bills](../.vuepress/public/images/UnpaidBills.png)
+
+![Payment History](../.vuepress/public/images/PaidBills.png)
+
+## Filtering
+
+The user is able to filter the table via each column using the filters provided below the title of each column. This will match any row based on the information provided.
+
+![Unpaid bills](../.vuepress/public/images/UnpaidBillsFilters.png)
+
+## Pay a bill
+
+The user is able to navigate to the 'Pay Bill' screen by locating the bill in the unpaid bills view and clicking on the 'Pay bill' button which is located in the 'actions' column. The user will then be navigated to the pay bill screen where they can see details about the bill and pay either via paypal or card.

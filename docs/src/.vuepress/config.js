@@ -53,7 +53,7 @@ module.exports = {
                         "Homepage",
                         "ViewMyBills",
                         "PayMyBills",
-                        "ViewAllBills",
+                        "ViewAllOperatorBills",
                     ],
                 },
             ],
